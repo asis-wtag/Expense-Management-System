@@ -9,18 +9,33 @@ RSpec.describe Organization, type: :model do
   end
 
   describe 'validations' do
-    it 'validates presence of name' do
+    it 'validates name with body' do
+      organization = FactoryBot.create(:organization)
+      expect(organization).to be_valid
+    end
+
+    it 'validates uniqueness of name' do
+      organization = FactoryBot.create(:organization)
+      expect(organization).to be_valid
+    end
+
+    it 'validates length of name' do
+      organization = Organization.new(name: 'a' * 30)
+      expect(organization).to be_valid
+    end
+
+    it 'invalidates empty name' do
       organization = Organization.new
       expect(organization).not_to be_valid
     end
 
-    it 'validates uniqueness of name' do
+    it 'invalidates duplicate name' do
       Organization.create(name: 'Test Organization')
       organization = Organization.new(name: 'Test Organization')
       expect(organization).not_to be_valid
     end
 
-    it 'validates length of name' do
+    it 'invalidates access length of name' do
       organization = Organization.new(name: 'a' * 31)
       expect(organization).not_to be_valid
     end

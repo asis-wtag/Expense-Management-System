@@ -3,11 +3,21 @@ require 'rails_helper'
 RSpec.describe UserOrganization, type: :model do
   describe 'validations' do
     it 'validates presence of invitation' do
+      user_organization = FactoryBot.create(:user_organization)
+      expect(user_organization).to be_valid
+    end
+
+    it 'validates inclusion type among predefined' do
+      user_organization = UserOrganization.new(user: User.new, organization: Organization.new, invitation: 'pending')
+      expect(user_organization).to be_valid
+    end
+
+    it 'invalidates null invitation' do
       user_organization = UserOrganization.new(user: User.new, organization: Organization.new)
       expect(user_organization).not_to be_valid
     end
 
-    it 'validates inclusion of invitation' do
+    it 'invalidates invitation type not among predefined' do
       user_organization = UserOrganization.new(user: User.new, organization: Organization.new, invitation: 'invalid')
       expect(user_organization).not_to be_valid
     end

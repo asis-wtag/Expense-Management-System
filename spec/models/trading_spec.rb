@@ -2,12 +2,23 @@ require 'rails_helper'
 
 RSpec.describe Trading, type: :model do
   describe 'validations' do
-    it 'validates presence of amount' do
+    it 'validates number as amount' do
+      trading = FactoryBot.create(:trading)
+      expect(trading).to be_valid
+    end
+
+    it 'validates numerical floating amount' do
+      trading = FactoryBot.create(:trading)
+      trading.amount = 3.14
+      expect(trading).to be_valid
+    end
+
+    it 'invalidates emptiness of amount' do
       trading = Trading.new
       expect(trading).not_to be_valid
     end
 
-    it 'validates numericality of amount' do
+    it 'invalidates non-numericality of amount' do
       trading = Trading.new(amount: 'abc')
       expect(trading).not_to be_valid
     end
