@@ -6,7 +6,7 @@ class RegistrationsController < ApplicationController
   def create
     @user = User.new(registration_params)
     if @user.save
-      send_email(params[:email])
+      send_email(@user.email)
       redirect_to root_path, notice: "Verification email sent, Check your email !"
     else
       render :new, status: :unprocessable_entity

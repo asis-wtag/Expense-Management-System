@@ -5,7 +5,7 @@ module SendConfirmationEmail
       ConfirmationMailer.confirmation_email(user).deliver_now
     else
       Rails.logger.error "User with email #{user_email} not found."
-      redirect_to root_path, notice: "User with email @{user_email} not found."
+      # redirect_to root_path, notice: "User with email @{user_email} not found."
       end
   end
 end
