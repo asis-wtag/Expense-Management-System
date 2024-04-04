@@ -16,7 +16,7 @@ RSpec.describe Comment do
 
     it 'validates length of body' do
       comment = FactoryBot.create(:comment)
-      comment.body = ( 'a' * 100)
+      comment.body = ( 'a' * 100 )
       expect(comment).to be_valid
     end
 
@@ -27,7 +27,7 @@ RSpec.describe Comment do
 
     it 'invalidates excess length body' do
       comment = FactoryBot.create(:comment)
-      comment.body = ( 'a' * 101)
+      comment.body = ( 'a' * 101 )
       expect(comment).not_to be_valid
     end
   end
