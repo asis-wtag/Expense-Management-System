@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Organization, type: :model do
+RSpec.describe Organization do
   describe 'associations' do
     it 'has many tradings' do
       association = described_class.reflect_on_association(:tradings)

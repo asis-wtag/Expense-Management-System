@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Trading, type: :model do
+RSpec.describe Trading do
   describe 'validations' do
     it 'validates number as amount' do
       trading = FactoryBot.create(:trading)

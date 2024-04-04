@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Comment, type: :model do
+RSpec.describe Comment do
   describe 'associations' do
     it 'belongs to user' do
       association = described_class.reflect_on_association(:user)

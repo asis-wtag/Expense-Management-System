@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe UserOrganization, type: :model do
+RSpec.describe UserOrganization do
   describe 'validations' do
     it 'validates presence of invitation' do
       user_organization = FactoryBot.create(:user_organization)

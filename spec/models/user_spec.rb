@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe User, type: :model do
+RSpec.describe User do
   describe 'validations' do
     it 'validates presence of name' do
       user = FactoryBot.create(:user)
@@ -22,7 +22,7 @@ RSpec.describe User, type: :model do
       expect(user).to be_valid
     end
 
-    it 'validates uniquene email' do
+    it 'validates unique email' do
       unique_user = FactoryBot.create(:user)
       expect(unique_user).to be_valid
     end
