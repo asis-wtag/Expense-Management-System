@@ -8,6 +8,6 @@
 <p>Hello <%= @user.name %>,</p>
 <p>Please click the following link to confirm your email address:</p>
 <%= link_to "Confirm Email",  confirmation_url(token: @user.generate_token_for(:email_confirmation)) %>
-<p>If you didn't request this, please ignore this email.</p>
+<p>If you didn't request this, please ignore this email. </p>
 </body>
 </html>
