@@ -4,5 +4,5 @@ Rails.application.routes.draw do
   resource :registrations
   resource :password_reset
   resource :password
-  resource :confirmation 
+  resource :confirmation
 end
