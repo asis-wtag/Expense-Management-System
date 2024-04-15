@@ -5,4 +5,5 @@ Rails.application.routes.draw do
   resource :password_reset
   resource :password
   resource :confirmation
+  resource :organization
 end

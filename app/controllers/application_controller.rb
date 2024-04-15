@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  include Pundit::Authorization
 
   private
 
@@ -7,7 +8,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_user
-    Current.user ||= authenticate_user_from_session
+    @user ||= authenticate_user_from_session
   end
   helper_method :current_user
 
@@ -20,12 +21,12 @@ class ApplicationController < ActionController::Base
   end
   helper_method :user_signed_in?
   def login(user)
-    Current.user = user
+    @user = user
     reset_session
     session[:user_id] = user.id
   end
-  def logout(user)
-    Current.user = nil
+  def logout
+    @user = nil
     reset_session
   end
 end
