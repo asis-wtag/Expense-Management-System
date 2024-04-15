@@ -5,5 +5,9 @@ Rails.application.routes.draw do
   resource :password_reset
   resource :password
   resource :confirmation
-  resource :organization
+  resources :organizations do
+    member do
+      get 'add_people'
+    end
+  end
 end
