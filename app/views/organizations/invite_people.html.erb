@@ -1,0 +1,11 @@
+<h3>Invite People To Organization:  <%= @organization.name %></h3>
+
+<%= form_with model: @organization, url: add_people_organization_path, method: :post do |form| %>
+  <div>
+    <%= form.label :email %>
+    <%= form.email_field :email, size: 50 %>
+  </div>
+  <div>
+    <%= form.submit "Invite To Organization" %>
+  </div>
+<% end %>

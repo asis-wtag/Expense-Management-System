@@ -1,4 +1,9 @@
 class OrganizationPolicy < ApplicationPolicy
+  attr :user, :organization
+  def initialize(user, organization)
+    @user = user
+    @organization = organization
+  end
   def create?
     true
   end
@@ -7,8 +12,16 @@ class OrganizationPolicy < ApplicationPolicy
     create?
   end
 
+  def invite_people?
+    if UserOrganization.find_by(user: @user, organization: @organization, role: 'admin').nil?
+      return false
+    else
+      return true
+    end
+  end
+
   def add_people?
-    UserOrganization.exists?(user: @user, organization: @organization, role: 'admin')
+    invite_people?
   end
 
   def show?
@@ -20,33 +33,22 @@ class OrganizationPolicy < ApplicationPolicy
   end
 
   def make_admin?
-    add_people?
+    invite_people?
   end
 
   def add_trading?
-    add_people?
+    invite_people?
   end
 
   def create_trading?
-    add_people?
+    invite_people?
   end
 
-  def delete_trading
-    add_people?
+  def delete_trading?
+    invite_people?
   end
 
-  def create_comment
-    add_people?
-  end
-
-  class Scope < Scope
-    # NOTE: Be explicit about which records you allow access to!
-    # def resolve
-    #   scope.all
-    # end
-    def initialize(user, organization)
-      @user = user
-      @organization = organization
-    end
+  def create_comment?
+    invite_people?
   end
 end

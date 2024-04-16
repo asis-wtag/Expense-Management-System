@@ -1,0 +1,24 @@
+<% if @user_organizations.present? %>
+  <h2>Pending Organization Invitations</h2>
+  <table>
+    <thead>
+    <tr>
+      <th>OrganizationName</th>
+      <th>InvitedAt</th>
+      <th>Action</th>  </tr>
+    </thead>
+    <tbody>
+    <% @user_organizations.each do |user_organization| %>
+      <tr>
+        <td><%= user_organization.organization.name %></td>
+        <td><%= user_organization.created_at %></td>
+        <td>
+          <%#= link_to "Accept Invitation", accept_organization_invitation_path(user_organization.id), method: :post %>  <%# Need To Add a link or form to reject invitation %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>You don't have any pending organization invitations.</p>
+<% end %>

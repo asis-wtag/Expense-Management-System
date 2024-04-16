@@ -1,0 +1,24 @@
+<% if @user_organizations.present? %>  <h2>User Organization Details</h2>
+  <table>
+    <thead>
+    <tr>
+      <th>User Name</th>
+      <th>Email</th>
+      <th>Invitation</th>
+      <th>Role</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @user_organizations.each do |user_organization| %>
+      <tr>
+        <td><%= user_organization.user.name %></td>
+        <td><%= user_organization.user.email %></td>
+        <td><%= user_organization.invitation %></td>
+        <td><%= user_organization.role %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>No user organizations found.</p>
+<% end %>
