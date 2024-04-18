@@ -13,7 +13,10 @@
         <td><%= user_organization.organization.name %></td>
         <td><%= user_organization.created_at %></td>
         <td>
-          <%#= link_to "Accept Invitation", accept_organization_invitation_path(user_organization.id), method: :post %>  <%# Need To Add a link or form to reject invitation %>
+          <%= link_to "Accept", accept_invitation_organization_path(user_organization.organization.id) %>
+        </td>
+        <td>
+          <%= link_to "Reject", reject_invitation_organization_path(user_organization.organization.id) %>
         </td>
       </tr>
     <% end %>

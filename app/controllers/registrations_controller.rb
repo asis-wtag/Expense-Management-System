@@ -1,7 +1,7 @@
 class RegistrationsController < ApplicationController
   include SendConfirmationEmail
   def new
-    @user = User.new
+    @user_1 = User.new
   end
   def create
     @user = User.new(registration_params)

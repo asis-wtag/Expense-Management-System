@@ -8,7 +8,8 @@ class OrganizationsController < ApplicationController
     existing_organization = Organization.where("LOWER(name) = ?", organization_name.downcase).first
 
     if existing_organization.nil?
-      @organization = Organization.create(name: organization_name)
+      Organization.create(name: organization_name)
+      @organization = Organization.find_by(name: organization_name)
       UserOrganization.create(user: current_user, organization: @organization, invitation: 'accepted',role: 'admin')
       redirect_to new_organization_path, notice: "Organization created successfully!"
     else
@@ -17,8 +18,8 @@ class OrganizationsController < ApplicationController
   end
 
   def show
-    authorize Organization, :show?
     @organization = Organization.find(params[:id])
+    authorize @organization, :show?
     @user_organizations = UserOrganization.where(organization: @organization)
   end
 
@@ -37,17 +38,56 @@ class OrganizationsController < ApplicationController
     @new_org_user = User.find_by(email: params[:organization][:email])
     if UserOrganization.find_by(user: @new_org_user, organization: @organization).nil?
       UserOrganization.create(user: @new_org_user, organization: @organization, invitation: 'pending', role: 'non-admin')
-      redirect_to invite_people_organization_path, notice: "Added user successfully to the organization"
+      redirect_to invite_people_organization_path, notice: "Invited user to the organization"
     else
       redirect_to invite_people_organization_path, notice: "Given user already exists/invited in the organization!"
     end
-
   end
 
+  def accept_invitation
+    authorize Organization, :accept_invitation?
+    @organization = Organization.find(params[:id])
+    @user_organization = UserOrganization.find_by(user: current_user,organization: @organization)
+    if @user_organization.update(invitation: 'accepted')
+      redirect_to organizations_invitations_path, notice: "Successfully accepted invitation"
+    else
+      redirect_to organizations_invitations_path, notice: "Something went wrong !"
+    end
+  end
+
+  def reject_invitation
+    authorize Organization, :reject_invitation?
+    @organization = Organization.find(params[:id])
+    @user_organization = UserOrganization.find_by(user: current_user,organization: @organization)
+    if @user_organization.update(invitation: 'rejected')
+      redirect_to organizations_invitations_path, notice: "Rejected joining invitation"
+    else
+      redirect_to organizations_invitations_path, notice: "Something went wrong !"
+    end
+  end
+
+  def my_organizations
+    authorize Organization, :my_organizations?
+    @my_organizations = UserOrganization.where(user: current_user, invitation: 'accepted')
+
+  end
   def make_admin
-    authorize Organization, :make_admin?
+    @organization = Organization.find(params[:id])
+    authorize @organization, :make_admin?
+    @new_admin = User.find(params[:user_id])
+    update_record = UserOrganization.find_by(user: @new_admin, organization: @organization)
+    if update_record.update(role: 'admin')
+      redirect_to organization_path(@organization.id), notice: "Maiden admin successfully"
+    else
+      redirect_to organization_path(@organization.id), notice: "Something went wrong"
+    end
   end
 
+  def tradings
+    @organization = Organization.find(params[:id])
+    authorize @organization, :tradings?
+
+  end
   def add_trading
     @organization = Organization.find(params[:id])
     authorize @organization, :add_trading?

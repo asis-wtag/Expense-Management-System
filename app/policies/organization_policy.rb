@@ -20,12 +20,24 @@ class OrganizationPolicy < ApplicationPolicy
     end
   end
 
+  def accept_invitation?
+    create?
+  end
+
+  def reject_invitation?
+    create?
+  end
+
+  def my_organizations?
+    create?
+  end
+
   def add_people?
     invite_people?
   end
 
   def show?
-    create?
+    invite_people?
   end
 
   def invitations?
@@ -36,19 +48,27 @@ class OrganizationPolicy < ApplicationPolicy
     invite_people?
   end
 
+  def tradings?
+    if UserOrganization.find_by(user: @user, organization: @organization, invitation: 'accepted').nil?
+      return false
+    else
+      return true
+    end
+  end
+
   def add_trading?
-    invite_people?
+    tradings?
   end
 
   def create_trading?
-    invite_people?
+    tradings?
   end
 
   def delete_trading?
-    invite_people?
+    tradings?
   end
 
   def create_comment?
-    invite_people?
+    tradings?
   end
 end

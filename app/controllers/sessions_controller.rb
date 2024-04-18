@@ -1,6 +1,8 @@
 class SessionsController < ApplicationController
   def new
-
+    if user_signed_in?
+      redirect_to organizations_invitations_path
+    end
   end
   def create
     if user = User.authenticate_by(email: params[:email], password: params[:password])

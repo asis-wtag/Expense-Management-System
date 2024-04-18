@@ -6,12 +6,17 @@ Rails.application.routes.draw do
   resource :password
   resource :confirmation
   get 'organizations/invitations', to: 'organizations#invitations'
+  get 'organizations/my_organizations', to: 'organizations#my_organizations'
   resources :organizations do
     member do
       post 'add_people'
       get 'invite_people'
+      get 'tradings'
       get 'add_trading'
       post 'create_trading'
+      get 'accept_invitation'
+      get 'reject_invitation'
+      get 'make_admin'
     end
   end
 

@@ -1,0 +1,17 @@
+<%= link_to "Create New Organization", new_organization_path %>
+<h3>All Organizations for: <%= current_user.email %></h3>
+<% if @my_organizations.present? %>
+  <% @my_organizations.each do |x| %>
+    <h3><%= x.organization.name %></h3>
+    <ul>
+      <li><%= link_to "Tradings", tradings_organization_path(x.organization.id) %></li>
+      <li><%= link_to "Add Trading", add_trading_organization_path(x.organization.id) %></li>
+      <% if x.role == 'admin' %>
+        <li><%= link_to "Organization Peoples", organization_path(x.organization.id) %></li>
+      <% end %>
+    </ul>
+  <% end %>
+<% else %>
+<p>You are not currently a member of any organizations.</p>
+<% end %>
+

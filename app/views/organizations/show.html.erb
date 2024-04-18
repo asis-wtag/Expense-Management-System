@@ -1,8 +1,10 @@
-<% if @user_organizations.present? %>  <h2>User Organization Details</h2>
+<% if @user_organizations.present? %>
+  <%= link_to "Invite People", invite_people_organization_path(@user_organizations.first.organization.id) %>
+  <h2> <%= @user_organizations.first.organization.name %> Organization People Details</h2>
   <table>
     <thead>
     <tr>
-      <th>User Name</th>
+      <th>Name</th>
       <th>Email</th>
       <th>Invitation</th>
       <th>Role</th>
@@ -15,6 +17,11 @@
         <td><%= user_organization.user.email %></td>
         <td><%= user_organization.invitation %></td>
         <td><%= user_organization.role %></td>
+        <% if user_organization.role=='non-admin' && user_organization.invitation=='accepted'  %>
+          <td>
+            <%= link_to 'Make Admin', make_admin_organization_path(user_organization.organization.id, user_id: user_organization.user.id) %>
+          </td>
+        <% end %>
       </tr>
     <% end %>
     </tbody>
