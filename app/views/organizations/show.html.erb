@@ -1,5 +1,8 @@
 <% if @user_organizations.present? %>
-  <%= link_to "Invite People", invite_people_organization_path(@user_organizations.first.organization.id) %>
+  <ul>
+    <li><%= link_to "Invite People", invite_people_organization_path(@user_organizations.first.organization.id) %></li>
+  </ul>
+
   <h2> <%= @user_organizations.first.organization.name %> Organization People Details</h2>
   <table>
     <thead>

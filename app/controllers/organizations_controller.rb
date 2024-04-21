@@ -86,11 +86,14 @@ class OrganizationsController < ApplicationController
   def tradings
     @organization = Organization.find(params[:id])
     authorize @organization, :tradings?
-
+    current_month = Time.current.beginning_of_month..Time.current.end_of_month
+    @tradings = Trading.where(organization: @organization, created_at: current_month).includes(:user).includes(:organization)
+    @comments = Comment.where(organization: @organization, created_at: current_month).includes(:organization)
   end
   def add_trading
     @organization = Organization.find(params[:id])
     authorize @organization, :add_trading?
+
   end
 
   def create_trading
@@ -104,11 +107,33 @@ class OrganizationsController < ApplicationController
   end
 
   def delete_trading
-    authorize Organization, :delete_trading?
+    @organization = Organization.find(params[:id])
+    authorize @organization, :delete_trading?
+    if Trading.destroy(params[:trading_id])
+      redirect_to tradings_organization_path, notice: "Deleted trading record successfully !"
+    else
+      redirect_to tradings_organization_path, notice: "Something went wrong !"
+    end
   end
 
-  def create_comment
-    authorize Organization, :create_comment?
+  def add_comment
+    @organization = Organization.find(params[:id])
+    authorize @organization, :add_comment?
+    if Comment.create(user: current_user, organization: @organization, body: params[:comment])
+      redirect_to tradings_organization_path, notice: "Comment added successfully !"
+    else
+    redirect_to tradings_organization_path, notice: "Something went wrong !"
+    end
+  end
+
+  def delete_comment
+    @organization = Organization.find(params[:id])
+    authorize @organization, :delete_comment?
+    if Comment.destroy(params[:comment_id])
+      redirect_to tradings_organization_path, notice: "Comment deleted successfully !"
+    else
+      redirect_to tradings_organization_path, notice: "Something went wrong !"
+    end
   end
 
 end

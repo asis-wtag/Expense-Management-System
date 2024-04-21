@@ -68,7 +68,11 @@ class OrganizationPolicy < ApplicationPolicy
     tradings?
   end
 
-  def create_comment?
+  def add_comment?
+    tradings?
+  end
+
+  def delete_comment?
     tradings?
   end
 end
