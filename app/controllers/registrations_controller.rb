@@ -4,12 +4,17 @@ class RegistrationsController < ApplicationController
     @user_1 = User.new
   end
   def create
-    @user = User.new(registration_params)
-    if @user.save
-      send_email(@user.email)
-      redirect_to root_path, notice: "Verification email sent, Check your email !"
+    @user = User.find_by(email: params[:email])
+    if @user.present?
+      redirect_to root_path, notice: "Email already exists "
     else
-      render :new, status: :unprocessable_entity
+      @user = User.new(registration_params)
+      if @user.save
+        send_email(@user.email)
+        redirect_to root_path, notice: "Verification email sent, Check your email !"
+      else
+        render :new, status: :unprocessable_entity
+      end
     end
   end
 
