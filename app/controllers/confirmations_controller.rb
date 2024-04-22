@@ -13,7 +13,7 @@ class ConfirmationsController < ApplicationController
     redirect_to root_path, notice: "Verification email sent again, Check your email !"
   end
 
-  def show # Show action is doing update actions job because there is a bug when we change the method to update and use path helper. Doing the path helper's job customly is also bringing several complexity
+  def show
     @user = User.find_by_token_for(:email_confirmation, params[:token])
     if @user && @user.confirm!
       redirect_to root_path, notice: "Your email has been successfully confirmed."
