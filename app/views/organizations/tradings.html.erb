@@ -30,7 +30,10 @@
         <td><%= trading.created_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
         <td><%= trading.user.email %></td>
         <td><%= trading.amount %></td>
-        <td><%= link_to "Delete", delete_trading_organization_path(trading_id: trading.id) %></td>
+        <td><%= link_to "Delete", delete_trading_organization_path(trading_id: trading.id), data: {
+          turbo_method: :delete,
+          turbo_confirm: "Are you sure to delete the trading?"
+        } %></td>
       </tr>
     <% end %>
     </tbody>
@@ -45,7 +48,11 @@
   <% @comments.each do |comment| %>
     <div>
     <ul>
-      <li><%= comment.user.email %>  (<%= comment.created_at.strftime("%Y-%m-%d %H:%M:%S") %>) <%= link_to "Delete", delete_comment_organization_path(comment_id: comment.id) %></li>
+      <li><%= comment.user.email %>  (<%= comment.created_at.strftime("%Y-%m-%d %H:%M:%S") %>)
+        <%= link_to "Delete", delete_comment_organization_path(comment_id: comment.id), data: {
+          turbo_method: :delete,
+          turbo_confirm: "Are you sure to delete the comment?"
+        } %></li>
       <%= comment.body %>
 
     </ul>

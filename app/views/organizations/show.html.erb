@@ -22,7 +22,10 @@
         <td><%= user_organization.role %></td>
         <% if user_organization.role=='non-admin' && user_organization.invitation=='accepted'  %>
           <td>
-            <%= link_to 'Make Admin', make_admin_organization_path(user_organization.organization.id, user_id: user_organization.user.id) %>
+            <%= link_to 'Make Admin', make_admin_organization_path(user_organization.organization.id, user_id: user_organization.user.id), data: {
+              turbo_method: :patch,
+              turbo_confirm: "Are you sure to promote to admin?"
+            } %>
           </td>
         <% end %>
       </tr>
