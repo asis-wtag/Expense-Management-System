@@ -1,0 +1,3 @@
+<%= form_with url: confirmation_path(email: @user.email), method: :post do |form| %>
+  <%= form.submit "Send Again" %>
+<% end %>
