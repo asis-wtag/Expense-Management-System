@@ -4,6 +4,7 @@ class SessionsController < ApplicationController
       redirect_to organizations_invitations_path
     end
   end
+
   def create
     if user = User.authenticate_by(email: params[:email], password: params[:password])
       if user.confirmed?
@@ -17,8 +18,10 @@ class SessionsController < ApplicationController
       render :new, status: :unprocessable_entity
     end
   end
+
   def destroy
     logout
     redirect_to root_path, notice: "You have been logged out."
   end
+
 end

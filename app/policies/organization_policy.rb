@@ -1,9 +1,11 @@
 class OrganizationPolicy < ApplicationPolicy
   attr :user, :organization
+
   def initialize(user, organization)
     @user = user
     @organization = organization
   end
+
   def create?
     true
   end
@@ -75,4 +77,5 @@ class OrganizationPolicy < ApplicationPolicy
   def delete_comment?
     tradings?
   end
+
 end

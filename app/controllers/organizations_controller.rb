@@ -2,11 +2,11 @@ class OrganizationsController < ApplicationController
   def new
     authorize Organization, :new?
   end
+
   def create
     authorize Organization, :create?
     organization_name = params[:organization_name]
     existing_organization = Organization.where("LOWER(name) = ?", organization_name.downcase).first
-
     if existing_organization.nil?
       Organization.create(name: organization_name)
       @organization = Organization.find_by(name: organization_name)
@@ -27,6 +27,7 @@ class OrganizationsController < ApplicationController
     authorize Organization, :invitations?
     @user_organizations = UserOrganization.where(user: current_user, invitation: 'pending')
   end
+
   def invite_people
     @organization = Organization.find(params[:id])
     authorize @organization, :invite_people?
@@ -69,8 +70,8 @@ class OrganizationsController < ApplicationController
   def my_organizations
     authorize Organization, :my_organizations?
     @my_organizations = UserOrganization.where(user: current_user, invitation: 'accepted')
-
   end
+
   def make_admin
     @organization = Organization.find(params[:id])
     authorize @organization, :make_admin?
@@ -90,10 +91,10 @@ class OrganizationsController < ApplicationController
     @tradings = Trading.where(organization: @organization, created_at: current_month).includes(:user).includes(:organization)
     @comments = Comment.where(organization: @organization, created_at: current_month).includes(:organization)
   end
+
   def add_trading
     @organization = Organization.find(params[:id])
     authorize @organization, :add_trading?
-
   end
 
   def create_trading

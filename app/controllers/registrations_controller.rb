@@ -1,8 +1,10 @@
 class RegistrationsController < ApplicationController
   include SendConfirmationEmail
+
   def new
     @user_1 = User.new
   end
+
   def create
     @user = User.find_by(email: params[:email])
     if @user.present?
@@ -23,4 +25,5 @@ class RegistrationsController < ApplicationController
   def registration_params
     params.require(:user).permit(:name,:email, :password, :password_confirmation)
   end
+
 end
