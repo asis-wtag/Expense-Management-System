@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   resources :organizations do
     member do
       post 'add_people'
+      delete 'remove_people'
       get 'invite_people'
       get 'tradings'
       get 'add_trading'
@@ -20,6 +21,7 @@ Rails.application.routes.draw do
       patch 'make_admin'
       post 'add_comment'
       delete 'delete_comment'
+      delete 'delete_organization'
     end
   end
 

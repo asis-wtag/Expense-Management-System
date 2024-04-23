@@ -39,9 +39,20 @@ class OrganizationsController < ApplicationController
     @new_org_user = User.find_by(email: params[:organization][:email])
     if UserOrganization.find_by(user: @new_org_user, organization: @organization).nil?
       UserOrganization.create(user: @new_org_user, organization: @organization, invitation: 'pending', role: 'non-admin')
-      redirect_to invite_people_organization_path, notice: "Invited user to the organization"
+      redirect_to invite_people_organization_path, notice: "Successfully Invited user to the organization"
     else
       redirect_to invite_people_organization_path, notice: "Given user already exists/invited in the organization!"
+    end
+  end
+
+  def remove_people
+    @organization = Organization.find(params[:id])
+    authorize @organization, :remove_people?
+    @remove_org_user = User.find(params[:user_id])
+    if UserOrganization.destroy_by(user: @remove_org_user)
+      redirect_to organization_path(@organization.id), notice: "Successfully removed from organization"
+    else
+      redirect_to organization_path(@organization.id), notice: "Something went wrong !"
     end
   end
 
@@ -101,9 +112,9 @@ class OrganizationsController < ApplicationController
     @organization = Organization.find(params[:id])
     authorize @organization, :create_trading?
     if Trading.create(user: current_user, organization: @organization, amount: params[:amount] )
-      redirect_to add_trading_organization_path, notice: "Transaction record added successfully !"
+      redirect_to tradings_organization_path, notice: "Transaction record added successfully !"
     else
-      redirect_to add_trading_organization_path, notice: "Failed to add transaction, something went wrong !"
+      redirect_to tradings_organization_path, notice: "Failed to add transaction, something went wrong !"
     end
   end
 
@@ -134,6 +145,16 @@ class OrganizationsController < ApplicationController
       redirect_to tradings_organization_path, notice: "Comment deleted successfully !"
     else
       redirect_to tradings_organization_path, notice: "Something went wrong !"
+    end
+  end
+
+  def delete_organization
+    @organization = Organization.find(params[:id])
+    authorize @organization, :delete_organization?
+    if  Trading.where(organization: @organization).destroy_all && UserOrganization.where(organization: @organization).destroy_all && Organization.destroy(params[:id])
+      redirect_to organizations_my_organizations_path, notice: "Deleted Organization successfully !"
+    else
+      redirect_to organizations_my_organizations_path, notice: "Something went wrong !"
     end
   end
 end

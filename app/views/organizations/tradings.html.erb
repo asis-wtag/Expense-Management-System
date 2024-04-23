@@ -1,8 +1,18 @@
 <meta name="turbo-prefetch" content="false">
 <ul>
   <li>
-    <%= link_to 'Add Trading', add_trading_organization_path(@organization.id) %>
+    Add A Trading
+    <%= form_with url: create_trading_organization_path, method: :post do |form| %>
+      <div>
+        <%= form.label :amount %>
+        <%= form.number_field :amount,  step: "0.000001"%>
+      </div>
+      <div>
+        <%= form.submit "Add Trading" %>
+      </div>
+    <% end %>
   </li>
+  <br>
   <li>Add a comment</li>
   <%= form_with url: add_comment_organization_path(@organization.id), method: :post do |form| %>
     <div>

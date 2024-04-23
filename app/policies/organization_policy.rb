@@ -38,6 +38,10 @@ class OrganizationPolicy < ApplicationPolicy
     invite_people?
   end
 
+  def remove_people?
+    invite_people?
+  end
+
   def show?
     invite_people?
   end
@@ -47,6 +51,10 @@ class OrganizationPolicy < ApplicationPolicy
   end
 
   def make_admin?
+    invite_people?
+  end
+
+  def delete_organization?
     invite_people?
   end
 

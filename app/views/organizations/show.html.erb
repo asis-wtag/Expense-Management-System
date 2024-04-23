@@ -26,6 +26,17 @@
               turbo_method: :patch,
               turbo_confirm: "Are you sure to promote to admin?"
             } %>
+            <%= link_to 'Remove Member', remove_people_organization_path(user_organization.organization.id, user_id: user_organization.user.id), data: {
+              turbo_method: :delete,
+              turbo_confirm: "Are you sure to remove this member from organization?"
+            } %>
+          </td>
+          <% elsif user_organization.role=='non-admin' && user_organization.invitation=='pending'  %>
+          <td>
+            <%= link_to 'Cancel Invitation', remove_people_organization_path(user_organization.organization.id, user_id: user_organization.user.id), data: {
+              turbo_method: :delete,
+              turbo_confirm: "Are you sure to cancel the invitation?"
+            } %>
           </td>
         <% end %>
       </tr>

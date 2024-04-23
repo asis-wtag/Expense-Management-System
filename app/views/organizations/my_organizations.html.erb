@@ -1,9 +1,18 @@
 <ul><li><%= link_to "Create New Organization", new_organization_path %></li></ul>
 
-<h3>All Organizations for: <%= current_user.email %></h3>
+<h3>All Organizations for: <%= current_user.name %></h3>
 <% if @my_organizations.present? %>
   <% @my_organizations.each do |x| %>
-    <h3><%= x.organization.name %></h3>
+    <h3><%= x.organization.name %>&emsp;&emsp;
+      <% if x.role == 'admin' %>
+        <sub>
+          <%= link_to "Delete Organization", delete_organization_organization_path(x.organization.id), data: {
+            turbo_method: :delete,
+            turbo_confirm: "Are you sure to delete this organization?"
+          } %>
+        </sub>
+      <% end %>
+    </h3>
     <ul>
       <li><%= link_to "Tradings", tradings_organization_path(x.organization.id) %></li>
       <li><%= link_to "Add Trading", add_trading_organization_path(x.organization.id) %></li>
