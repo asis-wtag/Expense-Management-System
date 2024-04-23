@@ -7,5 +7,4 @@ module SendConfirmationEmail
       Rails.logger.error "User with email #{user_email} not found."
       end
   end
-
 end

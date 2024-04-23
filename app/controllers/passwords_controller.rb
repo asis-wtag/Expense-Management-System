@@ -21,5 +21,4 @@ class PasswordsController < ApplicationController
       :password_challenge
     ).with_defaults(password_challenge: "")
   end
-
 end

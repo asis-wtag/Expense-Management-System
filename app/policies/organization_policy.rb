@@ -77,5 +77,4 @@ class OrganizationPolicy < ApplicationPolicy
   def delete_comment?
     tradings?
   end
-
 end

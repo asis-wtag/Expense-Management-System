@@ -33,5 +33,4 @@ class ConfirmationsController < ApplicationController
   def find_by_confirmation_token(token)
     @user = User.find_by_token_for(:confirm_email, params[:token])
   end
-
 end

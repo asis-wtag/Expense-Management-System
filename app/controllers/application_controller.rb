@@ -31,5 +31,4 @@ class ApplicationController < ActionController::Base
     @user = nil
     reset_session
   end
-
 end

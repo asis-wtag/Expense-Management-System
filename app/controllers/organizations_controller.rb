@@ -136,5 +136,4 @@ class OrganizationsController < ApplicationController
       redirect_to tradings_organization_path, notice: "Something went wrong !"
     end
   end
-
 end
