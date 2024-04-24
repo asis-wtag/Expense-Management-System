@@ -5,6 +5,6 @@ module SendConfirmationEmail
       ConfirmationMailer.confirmation_email(user).deliver_now
     else
       Rails.logger.error "User with email #{user_email} not found."
-      end
+    end
   end
 end
