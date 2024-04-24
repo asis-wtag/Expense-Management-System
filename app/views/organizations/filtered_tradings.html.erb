@@ -1,0 +1,39 @@
+<h2>Filtered Tradings for <%= @organization.name %></h2>
+<% if @filtered_tradings.present? %>
+  <table>
+    <thead>
+    <tr>
+      <th>Added At</th>
+      <th>Added By</th>
+      <th>Amount</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @filtered_tradings.each do |trading| %>
+      <tr>
+        <td><%= trading.created_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
+        <td><%= trading.user.email %></td>
+        <td><%= trading.amount %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>No trading found.</p>
+<% end %>
+
+<hr>
+<h2> Comments</h2>
+<% if @filtered_comments.present? %>
+  <% @filtered_comments.each do |comment| %>
+    <div>
+      <ul>
+        <li><%= comment.user.email %>  (<%= comment.created_at.strftime("%Y-%m-%d %H:%M:%S") %>)
+        <%= comment.body %>
+
+      </ul>
+    </div>
+  <% end %>
+<% else %>
+  <p> No comments found</p>
+<% end %>

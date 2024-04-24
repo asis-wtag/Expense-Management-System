@@ -118,6 +118,20 @@ class OrganizationsController < ApplicationController
     end
   end
 
+  def search_trading
+    @organization = Organization.find(params[:id])
+    authorize @organization, :search_trading?
+  end
+
+  def filtered_tradings
+    @organization = Organization.find(params[:id])
+    authorize @organization, :filtered_tradings?
+    start_date = params[:start_date]
+    end_date = Date.parse(params[:end_date]).next_day.to_s
+    @filtered_tradings = Trading.where(created_at: start_date..end_date)
+    @filtered_comments = Comment.where(created_at: start_date..end_date)
+  end
+
   def delete_trading
     @organization = Organization.find(params[:id])
     authorize @organization, :delete_trading?

@@ -18,6 +18,7 @@
       <li><%= link_to "Add Trading", add_trading_organization_path(x.organization.id) %></li>
       <% if x.role == 'admin' %>
         <li><%= link_to "Organization Peoples", organization_path(x.organization.id) %></li>
+        <li><%= link_to "Search Trading", search_trading_organization_path(x.organization.id) %></li>
       <% end %>
     </ul>
   <% end %>

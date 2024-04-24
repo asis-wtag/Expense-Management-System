@@ -16,6 +16,8 @@ Rails.application.routes.draw do
       get 'add_trading'
       post 'create_trading'
       delete 'delete_trading'
+      get 'search_trading'
+      get 'filtered_tradings'
       patch 'accept_invitation'
       patch 'reject_invitation'
       patch 'make_admin'

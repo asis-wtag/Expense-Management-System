@@ -78,6 +78,14 @@ class OrganizationPolicy < ApplicationPolicy
     tradings?
   end
 
+  def search_trading?
+    tradings?
+  end
+
+  def filtered_tradings?
+    tradings?
+  end
+
   def add_comment?
     tradings?
   end
