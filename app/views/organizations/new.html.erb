@@ -1,0 +1,11 @@
+<h3>Create An Organization</h3>
+
+<%= form_with model: @organization, url: organizations_path do |form| %>
+  <div>
+    <%= form.label :organization_name %>
+    <%= form.text_field :organization_name, size: 30 %>
+  </div>
+  <div>
+    <%= form.submit "Create Organization" %>
+  </div>
+<% end %>

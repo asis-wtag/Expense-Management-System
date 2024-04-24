@@ -4,11 +4,11 @@ class User < ApplicationRecord
   validates :email, presence: true, length: { maximum: 50 }, uniqueness: true,
                     format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i }
 
-  generates_token_for :password_reset, expires_in: 15.minutes do
+  generates_token_for :password_reset, expires_in: 20.minutes do
     password_salt&.last(10)
   end
 
-  generates_token_for :email_confirmation, expires_in: 24.hours do
+  generates_token_for :email_confirmation, expires_in: 20.minutes do
     email
   end
 

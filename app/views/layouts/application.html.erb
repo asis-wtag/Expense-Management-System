@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+  <meta name="turbo-prefetch" content="false">
   <head>
     <title>ExpenseManagementSystem</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -11,6 +12,23 @@
   </head>
 
   <body>
+    <div><%= notice %></div>
+    <div><%= alert %></div>
+
+    <% if user_signed_in? %>
+      <ul>
+        <li><%= button_to "Log out" , session_path, method: :delete%></li>
+        <li><%= link_to "Edit-Password", edit_password_path %></li>
+        <li><%= link_to "My_Organizations", organizations_my_organizations_path %></li>
+        <Li><%= link_to "Organizations_Invitations", organizations_invitations_path %></Li>
+      </ul>
+    <% else %>
+      <ul>
+        <li><%= link_to "Sign Up", new_registrations_path %></li>
+        <li><%= link_to "Log in", new_session_path %></li>
+      </ul>
+    <% end %>
+      
     <%= yield %>
   </body>
 </html>

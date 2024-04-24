@@ -6,6 +6,11 @@ RSpec.describe Comment do
       association = described_class.reflect_on_association(:user)
       expect(association.macro).to eq(:belongs_to)
     end
+
+    it 'belongs to organization' do
+      association = described_class.reflect_on_association(:organization)
+      expect(association.macro).to eq(:belongs_to)
+    end
   end
 
   describe 'validations' do
@@ -31,5 +36,4 @@ RSpec.describe Comment do
       expect(comment).not_to be_valid
     end
   end
-
 end

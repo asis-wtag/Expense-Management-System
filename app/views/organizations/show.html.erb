@@ -1,0 +1,49 @@
+<% if @user_organizations.present? %>
+  <ul>
+    <li><%= link_to "Invite People", invite_people_organization_path(@user_organizations.first.organization.id) %></li>
+  </ul>
+
+  <h2> <%= @user_organizations.first.organization.name %> Organization People Details</h2>
+  <table>
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Invitation</th>
+      <th>Role</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @user_organizations.each do |user_organization| %>
+      <tr>
+        <td><%= user_organization.user.name %></td>
+        <td><%= user_organization.user.email %></td>
+        <td><%= user_organization.invitation %></td>
+        <td><%= user_organization.role %></td>
+        <% if user_organization.role=='non-admin' && user_organization.invitation=='accepted'  %>
+          <td>
+            <%= link_to 'Make Admin', make_admin_organization_path(user_organization.organization.id, user_id: user_organization.user.id), data: {
+              turbo_method: :patch,
+              turbo_confirm: "Are you sure to promote to admin?"
+            } %>
+            <%= link_to 'Remove Member', remove_people_organization_path(user_organization.organization.id, user_id: user_organization.user.id), data: {
+              turbo_method: :delete,
+              turbo_confirm: "Are you sure to remove this member from organization?"
+            } %>
+          </td>
+          <% elsif user_organization.role=='non-admin' && user_organization.invitation=='pending'  %>
+          <td>
+            <%= link_to 'Cancel Invitation', remove_people_organization_path(user_organization.organization.id, user_id: user_organization.user.id), data: {
+              turbo_method: :delete,
+              turbo_confirm: "Are you sure to cancel the invitation?"
+            } %>
+          </td>
+        <% end %>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>No user organizations found.</p>
+<% end %>
+

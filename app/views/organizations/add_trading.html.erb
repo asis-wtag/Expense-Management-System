@@ -1,0 +1,11 @@
+<h3>Add A Transaction To <%= @organization.name %></h3>
+
+<%= form_with url: create_trading_organization_path, method: :post do |form| %>
+  <div>
+    <%= form.label :amount %>
+    <%= form.number_field :amount,  step: "0.000001"%>
+  </div>
+  <div>
+    <%= form.submit "Add Transaction" %>
+  </div>
+<% end %>
