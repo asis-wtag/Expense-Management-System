@@ -9,7 +9,7 @@ class PasswordResetsController < ApplicationController
       PasswordMailer.with(
         user: user,
         token: user.generate_token_for(:password_reset)
-      ).password_reset.deliver_later
+      ).password_reset.deliver_now
     end
     redirect_to root_path, notice: "Check your email to reset your password"
   end
@@ -22,7 +22,7 @@ class PasswordResetsController < ApplicationController
     if @user.update(password_params)
       redirect_to new_session_path, notice: "Your password has been reset successfully. Please login."
     else
-      render :edit,status: :unprocessable_entity
+      render :edit, status: :unprocessable_entity
     end
   end
 

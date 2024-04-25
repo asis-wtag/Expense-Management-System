@@ -7,6 +7,8 @@ Rails.application.routes.draw do
   resource :confirmation
   get 'organizations/invitations', to: 'organizations#invitations'
   get 'organizations/my_organizations', to: 'organizations#my_organizations'
+  require 'sidekiq/web'
+  mount Sidekiq::Web => '/sidekiq'
   resources :organizations do
     member do
       post 'add_people'

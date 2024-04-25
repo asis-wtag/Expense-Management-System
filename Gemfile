@@ -29,6 +29,8 @@ ruby "3.3.0"
 
 gem "sassc-rails"
 
+gem "sidekiq", "~> 6.2"
+
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
 
