@@ -8,7 +8,6 @@ class ConfirmationsController < ApplicationController
   end
 
   def create
-    user = User.find_by(email: params[:email])
     send_email(user.email)
     redirect_to root_path, notice: "Verification email sent again, Check your email !"
   end
