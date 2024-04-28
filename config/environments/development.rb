@@ -1,4 +1,5 @@
 require "active_support/core_ext/integer/time"
+require 'rufus-scheduler'
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
@@ -81,10 +82,14 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = {
     address: 'smtp.gmail.com',
     domain: 'mail.google.com',
-    port: 3000,
+    port: 587,
     user_name: ENV['ADMINISTRATOR_EMAIL'],
     password: ENV['ADMINISTRATOR_EMAIL_PASSWORD'],
     authentication: 'plain',
     enable_starttls_auto: true
   }
+
+  config.after_initialize do
+    Rufus::Scheduler.singleton
+  end
 end
