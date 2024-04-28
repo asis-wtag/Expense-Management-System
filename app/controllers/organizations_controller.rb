@@ -165,7 +165,7 @@ class OrganizationsController < ApplicationController
   def delete_organization
     @organization = Organization.find(params[:id])
     authorize @organization, :delete_organization?
-    if  Trading.where(organization: @organization).destroy_all && UserOrganization.where(organization: @organization).destroy_all && Organization.destroy(params[:id])
+    if Trading.where(organization: @organization).destroy_all && UserOrganization.where(organization: @organization).destroy_all && Comment.where(organization: @organization).destroy_all && Organization.destroy(params[:id])
       redirect_to organizations_my_organizations_path, notice: "Deleted Organization successfully !"
     else
       redirect_to organizations_my_organizations_path, notice: "Something went wrong !"

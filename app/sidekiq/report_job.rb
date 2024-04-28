@@ -3,7 +3,6 @@ class ReportJob
   include Sidekiq::Job
 
   def perform
-    puts "------------Hit Successful--------------"
     current_month = Date.today.prev_month.beginning_of_month..Date.today.beginning_of_month
     organizations = Organization.all
     organizations.each do |organization|
