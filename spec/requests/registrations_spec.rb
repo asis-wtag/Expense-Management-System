@@ -19,7 +19,7 @@ RSpec.describe RegistrationsController, type: :controller do
       it "redirects to root path with notice" do
         post :create, params: valid_params
         expect(response).to redirect_to(root_path)
-        expect(flash[:notice]).to eq("Verification email sent, Check your email !")
+        expect(flash[:notice]).to eq("Verification email sent, Please check your email !")
       end
     end
 

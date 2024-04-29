@@ -32,7 +32,7 @@ RSpec.describe SessionsController, type: :controller do
         allow(User).to receive(:authenticate_by).and_return(user)
         post :create, params: valid_params
         expect(response).to redirect_to(root_path)
-        expect(flash[:notice]).to eq("You have signed in successfully.")
+        expect(flash[:notice]).to eq("You have signed in successfully !")
       end
     end
 
@@ -61,7 +61,7 @@ RSpec.describe SessionsController, type: :controller do
       it "sets flash alert message" do
         allow(User).to receive(:authenticate_by).and_return(nil)
         post :create, params: invalid_params
-        expect(flash[:alert]).to eq("Invalid email or password.")
+        expect(flash[:alert]).to eq("Invalid email or password !")
       end
     end
   end

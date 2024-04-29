@@ -4,7 +4,7 @@ module SendConfirmationEmail
     if user.present?
       ConfirmationMailer.confirmation_email(user).deliver_now
     else
-      Rails.logger.error "User with email #{user_email} not found."
+      Rails.logger.error I18n.t('controller.concern.email_not_found')
     end
   end
 end

@@ -11,7 +11,7 @@ class PasswordResetsController < ApplicationController
         token: user.generate_token_for(:password_reset)
       ).password_reset.deliver_now
     end
-    redirect_to root_path, notice: "Check your email to reset your password"
+    redirect_to root_path, notice: I18n.t('controller.password_reset.check_email_message')
   end
 
   def edit
@@ -20,7 +20,7 @@ class PasswordResetsController < ApplicationController
 
   def update
     if @user.update(password_params)
-      redirect_to new_session_path, notice: "Your password has been reset successfully. Please login."
+      redirect_to new_session_path, notice: I18n.t('controller.password_reset.updated_successfully_message')
     else
       render :edit, status: :unprocessable_entity
     end
@@ -30,7 +30,7 @@ class PasswordResetsController < ApplicationController
 
   def set_user_by_token
     @user = User.find_by_token_for(:password_reset, params[:token])
-    redirect to new_password_reset_path alert: "Invalid token, please try again." unless @user.present?
+    redirect to new_password_reset_path alert: I18n.t('controller.password_reset.invalid_access_token') unless @user.present?
   end
 
   def password_params

@@ -1,4 +1,4 @@
-<h5>Need to get verification email again?</h5>
+<h5><%= I18n.t('view.confirmation.heading_message') %></h5>
 <%= form_with url: confirmation_path(email: @user.email), method: :post do |form| %>
-  <%= form.submit "Send Again" %>
+  <%= form.submit I18n.t('view.confirmation.button_text') %>
 <% end %>

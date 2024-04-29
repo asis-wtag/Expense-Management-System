@@ -18,7 +18,7 @@ RSpec.describe PasswordResetsController, type: :controller do
 
         post :create, params: { email: user.email }
         expect(response).to redirect_to(root_path)
-        expect(flash[:notice]).to eq("Check your email to reset your password")
+        expect(flash[:notice]).to eq("Check your email to reset your password !")
       end
     end
 
@@ -28,7 +28,7 @@ RSpec.describe PasswordResetsController, type: :controller do
 
         post :create, params: { email: "invalid@example.com" }
         expect(response).to redirect_to(root_path)
-        expect(flash[:notice]).to eq("Check your email to reset your password")
+        expect(flash[:notice]).to eq("Check your email to reset your password !")
       end
     end
   end
@@ -49,7 +49,7 @@ RSpec.describe PasswordResetsController, type: :controller do
 
         put :update, params: { token: token, user: { password: new_password, password_confirmation: new_password } }
         expect(response).to redirect_to(new_session_path)
-        expect(flash[:notice]).to eq("Your password has been reset successfully. Please login.")
+        expect(flash[:notice]).to eq("Your password has been reset successfully, Please login !")
       end
     end
 

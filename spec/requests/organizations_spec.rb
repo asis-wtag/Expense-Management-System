@@ -22,7 +22,7 @@ RSpec.describe OrganizationsController, type: :controller do
         post :create, params: { organization_name: "New Organization" }
         expect(response).to have_http_status(:redirect)
         expect(response).to redirect_to(new_organization_path)
-        expect(flash[:notice]).to eq("Organization created successfully!")
+        expect(flash[:notice]).to eq("Organization created successfully !")
       end
     end
 
@@ -32,7 +32,7 @@ RSpec.describe OrganizationsController, type: :controller do
         post :create, params: { organization_name: existing_organization.name }
         expect(response).to have_http_status(:redirect)
         expect(response).to redirect_to(new_organization_path)
-        expect(flash[:notice]).to eq("Organization already exists!")
+        expect(flash[:notice]).to eq("Organization already exists, try a different name !")
       end
     end
   end

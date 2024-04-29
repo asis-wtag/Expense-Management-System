@@ -1,31 +1,95 @@
-# Files in the config/locales directory are used for internationalization and
-# are automatically loaded by Rails. If you want to use locales other than
-# English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t "hello"
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t("hello") %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# To learn more about the API, please read the Rails Internationalization guide
-# at https://guides.rubyonrails.org/i18n.html.
-#
-# Be aware that YAML interprets the following case-insensitive strings as
-# booleans: `true`, `false`, `on`, `off`, `yes`, `no`. Therefore, these strings
-# must be quoted to be interpreted as strings. For example:
-#
-#     en:
-#       "yes": yup
-#       enabled: "ON"
-
 en:
-  hello: "Hello world"
+  controller:
+    concern:
+      email_not_found: User with email not found !
+    application:
+      login_required_error: You must be logged in to do that !
+    registration:
+      create:
+        duplicate_email_message: Account with this email already exists, try a different one !
+        successfully_sent_verification_mail_message: Verification email sent, Please check your email !
+    session:
+      successful_signin_message: You have signed in successfully !
+      required_email_verification_message: You need to verify your email first !
+      invalid_credential_message: Invalid email or password !
+    confirmation:
+      create:
+        verification_mail_sent_message: Verification email sent again, Check your email !
+      show:
+        email_confirmed_message: Your email has been successfully confirmed !
+        invalid_token_error: Invalid confirmation token !
+      redirect_if_authenticated:
+        successful_signin_message: You have signed in successfully !
+    password:
+      successful_update_message: Your password has been updated successfully !
+    password_reset:
+      check_email_message: Check your email to reset your password !
+      updated_successfully_message: Your password has been reset successfully, Please login !
+      invalid_access_token: Invalid token, please try again !
+    organization:
+      create:
+        successful_creation_message: Organization created successfully !
+        already_exists_error: Organization already exists, try a different name !
+      add_people:
+        invitation_successful_message: Successfully invited user to the organization !
+        user_already_in_organization_message: Given user already exists/invited in the organization !
+      remove_people:
+        successfully_removed_message: Successfully removed user from the organization !
+      accept_invitation:
+        accepted_message: Successfully accepted the invitation !
+      reject_invitation:
+        rejected_message: Rejected the joining invitation !
+      make_admin:
+        successful_message: Maiden admin successfully !
+      create_trading:
+        successful_message: Transaction record added successfully !
+      delete_trading:
+        successful_message: Deleted trading record successfully !
+      add_comment:
+        successful_message: Comment added successfully !
+      delete_comment:
+        successful_message: Comment deleted successfully !
+      delete_organization:
+        successful_message: Deleted organization successfully !
+      users_role:
+        admin: admin
+        non-admin: non-admin
+      invitation_status:
+        pending: pending
+        accepted: accepted
+        rejected: rejected
+      something_went_wrong_message: Couldn't proceed, Something went wrong !
+  mailer:
+    confirmation_mailer:
+      subject: Confirm your email address
+    password_mailer:
+      subject: Reset your password
+    expense_mailer:
+      subject: "Monthly Expense Report of %{organization_name}"
+    default_address: emsproject2222@gmail.com
+    default_layout: layout
+  view:
+    confirmation_email:
+      title: Verification Email
+      hello: Hello
+      click_link_instruction_message: Please click the following link to confirm your email address
+      confirm_email_link_text: Confirm Email
+      unrequested_email_message: If you didn't request this, please ignore this email
+    confirmation:
+      heading_message: Need to get verification email again?
+      button_text: Send Again
+    expense_mailer:
+      heading_message: Monthly Net Expense Email
+      hello: Hello
+      net_expense_message: "The net expense for the last month of your organization %{organization_name} is: %{net_expense}"
+    layout:
+      application:
+        button_text: Logout
+        edit_password_text: Edit_Password
+        my_organization_text: My_Organization
+        organization_invitation_text: Organization_Invitations
+        signup_link_text: SignUp
+        login_link_text: LogIn
+    homepage:
+      heading_text: Homepage
+  hello: Hello

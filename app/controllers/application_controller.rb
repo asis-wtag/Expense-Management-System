@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   private
 
   def authenticate_user!
-    redirect_to root_path, alert: "You must be logged in to do that." unless user_signed_in?
+    redirect_to root_path, alert: I18n.t('controller.application.login_required_error') unless user_signed_in?
   end
 
   def current_user

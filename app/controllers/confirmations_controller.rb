@@ -9,15 +9,15 @@ class ConfirmationsController < ApplicationController
 
   def create
     send_email(user.email)
-    redirect_to root_path, notice: "Verification email sent again, Check your email !"
+    redirect_to root_path, notice: I18n.t('controller.confirmation.create.verification_mail_sent_message')
   end
 
   def show
     @user = User.find_by_token_for(:email_confirmation, params[:token])
     if @user && @user.confirm!
-      redirect_to root_path, notice: "Your email has been successfully confirmed."
+      redirect_to root_path, notice: I18n.t('controller.confirmation.show.email_confirmed_message')
     else
-      redirect_to root_path, alert: "Invalid confirmation token."
+      redirect_to root_path, alert: I18n.t('controller.confirmation.show.invalid_token_error')
     end
   end
 
@@ -26,7 +26,7 @@ class ConfirmationsController < ApplicationController
   def redirect_if_authenticated
     user = User.find_by(email: params[:email])
     return if user.nil?
-    redirect_to root_path, alert: "You have signed in successfully !" if user.confirmed?
+    redirect_to root_path, alert: I18n.t('controller.confirmation.redirect_if_authenticated.successful_signin_message') if user.confirmed?
   end
 
   def find_by_confirmation_token(token)
