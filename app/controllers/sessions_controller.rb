@@ -21,6 +21,6 @@ class SessionsController < ApplicationController
 
   def destroy
     logout
-    redirect_to root_path, notice: "You have been logged out."
+    redirect_to root_path, notice: I18n.t('controller.session.logged_out_message')
   end
 end

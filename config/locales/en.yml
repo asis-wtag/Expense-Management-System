@@ -4,6 +4,8 @@ en:
       email_not_found: User with email not found !
     application:
       login_required_error: You must be logged in to do that !
+      user_not_logged_in_error: Please login first to proceed !
+      unauthorized_action_error: You are not authorized to perform this action !
     registration:
       create:
         duplicate_email_message: Account with this email already exists, try a different one !
@@ -12,6 +14,7 @@ en:
       successful_signin_message: You have signed in successfully !
       required_email_verification_message: You need to verify your email first !
       invalid_credential_message: Invalid email or password !
+      logged_out_message: You have been logged out.
     confirmation:
       create:
         verification_mail_sent_message: Verification email sent again, Check your email !
@@ -174,7 +177,10 @@ en:
       heading_text: Sign Up
       button_text: Sign Up
     session:
-      heading_text: Log In
-      button_text: Sign Up
+      heading_text: Sign In
+      button_text: LogIn
       forgot_password_link_text: Forgot your password?
+    not_found:
+      heading_message: 404 Not Found !
+      body_message: The page you're looking for could not be found.
   hello: Hello

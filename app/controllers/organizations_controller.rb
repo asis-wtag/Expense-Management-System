@@ -10,7 +10,7 @@ class OrganizationsController < ApplicationController
     if existing_organization.nil?
       Organization.create(name: organization_name)
       @organization = Organization.find_by(name: organization_name)
-      UserOrganization.create(user: current_user, organization: @organization, invitation: 'accepted',role: 'admin')
+      UserOrganization.create(user: current_user, organization: @organization, invitation: 'accepted', role: 'admin')
       redirect_to new_organization_path, notice: I18n.t('controller.organization.create.successful_creation_message')
     else
       redirect_to new_organization_path, notice: I18n.t('controller.organization.create.already_exists_error')

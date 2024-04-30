@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   include Pundit::Authorization
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   private
 
@@ -30,5 +31,13 @@ class ApplicationController < ActionController::Base
   def logout
     @user = nil
     reset_session
+  end
+
+  def user_not_authorized
+    if !user_signed_in?
+      redirect_to root_path, notice: I18n.t('controller.application.user_not_logged_in_error')
+    else
+      redirect_to root_path, notice: I18n.t('controller.application.unauthorized_action_error')
+    end
   end
 end

@@ -9,7 +9,7 @@
           <%= link_to I18n.t('view.organizations.my_organization.delete_organization_link_text'), delete_organization_organization_path(x.organization.id), data: {
             turbo_method: :delete,
             turbo_confirm: "Are you sure to delete this organization?"
-          } %>
+          }, class: "btn btn-primary" %>
         </sub>
       <% end %>
     </h3>

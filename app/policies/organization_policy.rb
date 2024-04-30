@@ -7,7 +7,7 @@ class OrganizationPolicy < ApplicationPolicy
   end
 
   def create?
-    true
+    @user.present?
   end
 
   def new?
