@@ -1,4 +1,4 @@
-<h3>Create An Organization</h3>
+<h3><%= I18n.t('view.organizations.new.title_text') %></h3>
 
 <%= form_with model: @organization, url: organizations_path do |form| %>
   <div>
@@ -6,6 +6,6 @@
     <%= form.text_field :organization_name, size: 30 %>
   </div>
   <div>
-    <%= form.submit "Create Organization" %>
+    <%= form.submit I18n.t('view.organizations.new.button_text') %>
   </div>
 <% end %>

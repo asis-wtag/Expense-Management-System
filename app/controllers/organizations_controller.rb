@@ -37,7 +37,9 @@ class OrganizationsController < ApplicationController
     @organization = Organization.find(params[:id])
     authorize @organization, :add_people?
     @new_org_user = User.find_by(email: params[:organization][:email])
-    if UserOrganization.find_by(user: @new_org_user, organization: @organization).nil?
+    if @new_org_user.nil?
+      redirect_to invite_people_organization_path, notice: I18n.t('controller.organization.add_people.user_not_exists_message')
+    elsif UserOrganization.find_by(user: @new_org_user, organization: @organization).nil?
       UserOrganization.create(user: @new_org_user, organization: @organization, invitation: I18n.t('controller.organization.invitation_status.pending'), role: I18n.t('controller.organization.users_role.non-admin'))
       redirect_to invite_people_organization_path, notice: I18n.t('controller.organization.add_people.invitation_successful_message')
     else

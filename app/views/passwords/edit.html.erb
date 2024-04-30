@@ -1,4 +1,4 @@
-<h1>Update Password</h1>
+<h1><%= I18n.t('view.password.update_heading_text') %></h1>
 
 <%= form_with model: current_user, url: password_path do |form| %>
   <%if form.object.errors.any? %>
@@ -8,12 +8,12 @@
   <% end %>
 
   <div>
-    <%= form.label :password_challenge, "Current Password" %>
+    <%= form.label :password_challenge, I18n.t('view.password.current_password_label_text') %>
     <%= form.password_field :password_challenge %>
   </div>
 
   <div>
-    <%= form.label :password, "New Password" %>
+    <%= form.label :password, I18n.t('view.password.new_password_label_text') %>
     <%= form.password_field :password %>
   </div>
 
@@ -23,6 +23,6 @@
   </div>
 
   <div>
-    <%= form.submit "Update Password" %>
+    <%= form.submit I18n.t('view.password.button_text') %>
   </div>
 <% end %>

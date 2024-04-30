@@ -1,37 +1,37 @@
 <meta name="turbo-prefetch" content="false">
 <ul>
   <li>
-    Add A Trading
+    <%= I18n.t('view.organizations.tradings.add_trading_form_title_message') %>
     <%= form_with url: create_trading_organization_path, method: :post do |form| %>
       <div>
         <%= form.label :amount %>
         <%= form.number_field :amount,  step: "0.000001"%>
       </div>
       <div>
-        <%= form.submit "Add Trading" %>
+        <%= form.submit I18n.t('view.organizations.tradings.add_trading_from_button_text') %>
       </div>
     <% end %>
   </li>
   <br>
-  <li>Add a comment</li>
+  <li><%= I18n.t('view.organizations.tradings.add_comment_form_title_message') %></li>
   <%= form_with url: add_comment_organization_path(@organization.id), method: :post do |form| %>
     <div>
       <%= form.label :comment %>
       <%= form.text_field :comment,  max_length: 100 %>
     </div>
     <div>
-      <%= form.submit "Add Comment" %>
+      <%= form.submit I18n.t('view.organizations.tradings.add_comment_form_button_text') %>
     </div>
   <% end %>
 </ul>
-<h2>Running Month Tradings for <%= @organization.name %></h2>
+<h2><%= I18n.t('view.organizations.tradings.running_month_trading_div_title', organization_name: @organization.name) %></h2>
 <% if @tradings.present? %>
   <table>
     <thead>
     <tr>
-      <th>Added At</th>
-      <th>Added By</th>
-      <th>Amount</th>
+      <th><%= I18n.t('view.organizations.tradings.added_at_table_head_text') %></th>
+      <th><%= I18n.t('view.organizations.tradings.added_by_table_head_text') %></th>
+      <th><%= I18n.t('view.organizations.tradings.amount_table_head_text') %></th>
     </tr>
     </thead>
     <tbody>
@@ -40,7 +40,7 @@
         <td><%= trading.created_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
         <td><%= trading.user.email %></td>
         <td><%= trading.amount %></td>
-        <td><%= link_to "Delete", delete_trading_organization_path(trading_id: trading.id), data: {
+        <td><%= link_to I18n.t('view.organizations.tradings.delete_button_text'), delete_trading_organization_path(trading_id: trading.id), data: {
           turbo_method: :delete,
           turbo_confirm: "Are you sure to delete the trading?"
         } %></td>
@@ -49,17 +49,17 @@
     </tbody>
   </table>
 <% else %>
-  <p>No trading found.</p>
+  <p><%= I18n.t('view.organizations.tradings.no_trading_found_message') %></p>
 <% end %>
 
 <hr>
-<h2> Comments</h2>
+<h2> <%= I18n.t('view.organizations.tradings.running_month_comments_div_title') %></h2>
 <% if @comments.present? %>
   <% @comments.each do |comment| %>
     <div>
     <ul>
       <li><%= comment.user.email %>  (<%= comment.created_at.strftime("%Y-%m-%d %H:%M:%S") %>)
-        <%= link_to "Delete", delete_comment_organization_path(comment_id: comment.id), data: {
+        <%= link_to I18n.t('view.organizations.tradings.delete_button_text'), delete_comment_organization_path(comment_id: comment.id), data: {
           turbo_method: :delete,
           turbo_confirm: "Are you sure to delete the comment?"
         } %></li>
@@ -69,5 +69,5 @@
     </div>
   <% end %>
 <% else %>
-  <p> No comments found</p>
+  <p><%= I18n.t('view.organizations.tradings.no_comment_found_message') %></p>
 <% end %>

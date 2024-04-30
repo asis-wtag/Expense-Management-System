@@ -3,6 +3,6 @@ class ExpenseMailer < ApplicationMailer
     @user = user
     @organization = organization
     @net_expense = net_expense
-    mail(to: user.email, subject: I18n.t('mailer.expense_mailer.subject', organization_name: organization.name))
+    mail(to: user.email, subject: "Monthly Expense Report of #{organization.name}")
   end
 end

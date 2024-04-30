@@ -1,10 +1,10 @@
-<h4>Search Trading In A Range: </h4>
+<h4><%= I18n.t('view.organizations.search_trading.title_message') %>: </h4>
 <%= form_with url: filtered_tradings_organization_path(@organization.id), method: :get do |form| %>
-  <label for="start_date">Start Date:</label>
+  <label for="start_date"><%= I18n.t('view.organizations.search_trading.start_date_text') %>:</label>
   <%= form.date_field :start_date %>
 
-  <label for="end_date">End Date:</label>
+  <label for="end_date"><%= I18n.t('view.organizations.search_trading.end_date_text') %>:</label>
   <%= form.date_field :end_date %>
 
-  <%= form.submit "Find" %>
+  <%= form.submit I18n.t('view.organizations.search_trading.button_text') %>
 <% end %>

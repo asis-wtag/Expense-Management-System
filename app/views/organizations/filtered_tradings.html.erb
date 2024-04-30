@@ -1,11 +1,11 @@
-<h2>Filtered Tradings for <%= @organization.name %></h2>
+<h2><%= I18n.t('view.organizations.filtered_trading.heading_message', organization_name: @organization.name) %></h2>
 <% if @filtered_tradings.present? %>
   <table>
     <thead>
     <tr>
-      <th>Added At</th>
-      <th>Added By</th>
-      <th>Amount</th>
+      <th><%= I18n.t('view.organizations.filtered_trading.added_at_table_heading_message') %></th>
+      <th><%= I18n.t('view.organizations.filtered_trading.added_by_table_heading_message') %></th>
+      <th><%= I18n.t('view.organizations.filtered_trading.amount_table_heading_message') %></th>
     </tr>
     </thead>
     <tbody>
@@ -19,11 +19,11 @@
     </tbody>
   </table>
 <% else %>
-  <p>No trading found.</p>
+  <p><%= I18n.t('view.organizations.filtered_trading.no_trading_found_message') %></p>
 <% end %>
 
 <hr>
-<h2> Comments</h2>
+<h2><%= I18n.t('view.organizations.filtered_trading.comments_div_title') %></h2>
 <% if @filtered_comments.present? %>
   <% @filtered_comments.each do |comment| %>
     <div>
@@ -35,5 +35,5 @@
     </div>
   <% end %>
 <% else %>
-  <p> No comments found</p>
+  <p><%= I18n.t('view.organizations.filtered_trading.no_comment_found_message') %></p>
 <% end %>

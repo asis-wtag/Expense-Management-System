@@ -1,16 +1,16 @@
 <% if @user_organizations.present? %>
   <ul>
-    <li><%= link_to "Invite People", invite_people_organization_path(@user_organizations.first.organization.id) %></li>
+    <li><%= link_to I18n.t('view.organizations.show.invite_people_link_text'), invite_people_organization_path(@user_organizations.first.organization.id) %></li>
   </ul>
 
-  <h2> <%= @user_organizations.first.organization.name %> Organization People Details</h2>
+  <h2> <%= @user_organizations.first.organization.name %> <%= I18n.t('view.organizations.show.heading_message') %></h2>
   <table>
     <thead>
     <tr>
-      <th>Name</th>
-      <th>Email</th>
-      <th>Invitation</th>
-      <th>Role</th>
+      <th><%= I18n.t('view.organizations.show.table_name_heading_message') %></th>
+      <th><%= I18n.t('view.organizations.show.table_email_heading_message') %></th>
+      <th><%= I18n.t('view.organizations.show.table_invitation_heading_message') %></th>
+      <th><%= I18n.t('view.organizations.show.table_role_heading_message') %></th>
     </tr>
     </thead>
     <tbody>
@@ -20,20 +20,20 @@
         <td><%= user_organization.user.email %></td>
         <td><%= user_organization.invitation %></td>
         <td><%= user_organization.role %></td>
-        <% if user_organization.role=='non-admin' && user_organization.invitation=='accepted'  %>
+        <% if user_organization.role==I18n.t('controller.organization.users_role.non-admin') && user_organization.invitation==I18n.t('controller.organization.invitation_status.accepted')  %>
           <td>
-            <%= link_to 'Make Admin', make_admin_organization_path(user_organization.organization.id, user_id: user_organization.user.id), data: {
+            <%= link_to I18n.t('view.organizations.show.make_admin_link_text'), make_admin_organization_path(user_organization.organization.id, user_id: user_organization.user.id), data: {
               turbo_method: :patch,
               turbo_confirm: "Are you sure to promote to admin?"
             } %>
-            <%= link_to 'Remove Member', remove_people_organization_path(user_organization.organization.id, user_id: user_organization.user.id), data: {
+            <%= link_to I18n.t('view.organizations.show.remove_member_link_text'), remove_people_organization_path(user_organization.organization.id, user_id: user_organization.user.id), data: {
               turbo_method: :delete,
               turbo_confirm: "Are you sure to remove this member from organization?"
             } %>
           </td>
-          <% elsif user_organization.role=='non-admin' && user_organization.invitation=='pending'  %>
+          <% elsif user_organization.role==I18n.t('controller.organization.users_role.non-admin') && user_organization.invitation==I18n.t('controller.organization.invitation_status.pending')  %>
           <td>
-            <%= link_to 'Cancel Invitation', remove_people_organization_path(user_organization.organization.id, user_id: user_organization.user.id), data: {
+            <%= link_to I18n.t('view.organizations.show.cancel_invitation_link_text'), remove_people_organization_path(user_organization.organization.id, user_id: user_organization.user.id), data: {
               turbo_method: :delete,
               turbo_confirm: "Are you sure to cancel the invitation?"
             } %>
@@ -44,6 +44,6 @@
     </tbody>
   </table>
 <% else %>
-  <p>No user organizations found.</p>
+  <p><%= I18n.t('view.organizations.show.no_user_of_organization_found_message') %></p>
 <% end %>
 

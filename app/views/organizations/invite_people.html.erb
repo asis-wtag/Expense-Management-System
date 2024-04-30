@@ -1,4 +1,4 @@
-<h3>Invite People To Organization:  <%= @organization.name %></h3>
+<h3><%= I18n.t('view.organizations.invite_people.heading_title_message', organization_name: @organization.name) %></h3>
 
 <%= form_with model: @organization, url: add_people_organization_path, method: :post do |form| %>
   <div>
@@ -6,6 +6,6 @@
     <%= form.email_field :email, size: 50 %>
   </div>
   <div>
-    <%= form.submit "Invite To Organization" %>
+    <%= form.submit I18n.t('view.organizations.invite_people.invite_button_text') %>
   </div>
 <% end %>

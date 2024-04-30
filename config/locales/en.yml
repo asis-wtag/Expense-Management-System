@@ -33,6 +33,7 @@ en:
       add_people:
         invitation_successful_message: Successfully invited user to the organization !
         user_already_in_organization_message: Given user already exists/invited in the organization !
+        user_not_exists_message: User doesn't exists !
       remove_people:
         successfully_removed_message: Successfully removed user from the organization !
       accept_invitation:
@@ -61,13 +62,13 @@ en:
       something_went_wrong_message: Couldn't proceed, Something went wrong !
   mailer:
     confirmation_mailer:
-      subject: Confirm your email address
+      subject: "Confirm your email address"
     password_mailer:
       subject: Reset your password
     expense_mailer:
       subject: "Monthly Expense Report of %{organization_name}"
-    default_address: emsproject2222@gmail.com
-    default_layout: layout
+    default_address: "emsproject2222@gmail.com"
+    default_layout: "layout"
   view:
     confirmation_email:
       title: Verification Email
@@ -92,4 +93,88 @@ en:
         login_link_text: LogIn
     homepage:
       heading_text: Homepage
+    organizations:
+      add_trading:
+        heading_message: "Add A Transaction To %{organization_name}"
+        add_button_text: Add Transaction
+      filtered_trading:
+        heading_message: "Filtered Tradings for %{organization_name}"
+        added_at_table_heading_message: Added At
+        added_by_table_heading_message: Added By
+        amount_table_heading_message: Amount
+        no_trading_found_message: No trading found
+        comments_div_title: Comments
+        no_comment_found_message: No comments found
+      invitation:
+        heading_title_message: Pending Organization Invitations
+        organization_name_table_heading_message: OrganizationName
+        organization_invitation_time_table_heading_message: InvitedAt
+        organization_action_table_heading_message: Action
+        accept_link_text: Accept
+        reject_link_text: Reject
+        no_pending_invitation_message: You don't have any pending organization invitation
+      invite_people:
+        heading_title_message: "Invite People To Organization: %{organization_name}"
+        invite_button_text: Invite To Organization
+      my_organization:
+        create_new_organization_link_text: Create New Organization
+        all_organization_heading_text: "All Organization For: %{user}"
+        delete_organization_link_text: Delete Organization
+        trading_link_text: Tradings
+        add_trading_link_text: Add Trading
+        organization_peoples_link_text: Organization Peoples
+        search_trading_link_text: Search Trading
+        no_organization_for_user_message: You are not currently a member of any organization
+      new:
+        title_text: Create An Organization
+        button_text: Create Organization
+      search_trading:
+        title_message: Search Trading In A Range
+        start_date_text: Start Date
+        end_date_text: End Date
+        button_text: Submit
+      show:
+        invite_people_link_text: Invite People
+        heading_message: Organization People Details
+        table_name_heading_message: Name
+        table_email_heading_message: Email
+        table_invitation_heading_message: Invitation
+        table_role_heading_message: Role
+        make_admin_link_text: Make Admin
+        remove_member_link_text: Remove Member
+        cancel_invitation_link_text: Cancel Invitation
+        no_user_of_organization_found_message: No user of the organization found
+      tradings:
+        add_trading_form_title_message: Add A Trading
+        add_trading_from_button_text: Submit
+        add_comment_form_title_message: Add A Comment
+        add_comment_form_button_text: Add Comment
+        running_month_trading_div_title: "Running Month Trading For %{organization_name}"
+        added_at_table_head_text: Added At
+        added_by_table_head_text: Added By
+        amount_table_head_text: Amount
+        no_trading_found_message: No trading found
+        delete_button_text: Delete
+        running_month_comments_div_title: Running Month Comments
+        no_comment_found_message: No comment found
+    password_mailer:
+        heading_text: Reset Password
+        body_text: Please click the following link to reset your password
+        reset_password_link_text: Reset your password
+        unexpected_email_ignorance_message: If you didn't request this, please ignore this email
+    password_reset:
+        heading_text: Reset Your Password
+        button_text: Reset Password
+    password:
+      update_heading_text: Update Password
+      current_password_label_text: Current Password
+      new_password_label_text: New Password
+      button_text: Update Password
+    registration:
+      heading_text: Sign Up
+      button_text: Sign Up
+    session:
+      heading_text: Log In
+      button_text: Sign Up
+      forgot_password_link_text: Forgot your password?
   hello: Hello

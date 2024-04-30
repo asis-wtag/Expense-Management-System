@@ -1,4 +1,4 @@
-<h1>Reset Your Password</h1>
+<h1><%= I18n.t('view.password_reset.heading_text') %></h1>
 
 <%= form_with model: @user, url: password_reset_path do |form| %>
   <div>
@@ -6,6 +6,6 @@
     <%= form.email_field :email %>
   </div>
   <div>
-    <%= form.submit "Reset Password" %>
+    <%= form.submit I18n.t('view.password_reset.button_text') %>
   </div>
 <% end %>

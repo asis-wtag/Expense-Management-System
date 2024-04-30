@@ -1,12 +1,12 @@
-<ul><li><%= link_to "Create New Organization", new_organization_path %></li></ul>
+<ul><li><%= link_to I18n.t('view.organizations.my_organization.create_new_organization_link_text'), new_organization_path %></li></ul>
 
-<h3>All Organizations for: <%= current_user.name %></h3>
+<h3><%= I18n.t('view.organizations.my_organization.all_organization_heading_text', user: current_user.name) %></h3>
 <% if @my_organizations.present? %>
   <% @my_organizations.each do |x| %>
     <h3><%= x.organization.name %>&emsp;&emsp;
-      <% if x.role == 'admin' %>
+      <% if x.role == I18n.t('controller.organization.users_role.admin')%>
         <sub>
-          <%= link_to "Delete Organization", delete_organization_organization_path(x.organization.id), data: {
+          <%= link_to I18n.t('view.organizations.my_organization.delete_organization_link_text'), delete_organization_organization_path(x.organization.id), data: {
             turbo_method: :delete,
             turbo_confirm: "Are you sure to delete this organization?"
           } %>
@@ -14,15 +14,15 @@
       <% end %>
     </h3>
     <ul>
-      <li><%= link_to "Tradings", tradings_organization_path(x.organization.id) %></li>
-      <li><%= link_to "Add Trading", add_trading_organization_path(x.organization.id) %></li>
-      <% if x.role == 'admin' %>
-        <li><%= link_to "Organization Peoples", organization_path(x.organization.id) %></li>
-        <li><%= link_to "Search Trading", search_trading_organization_path(x.organization.id) %></li>
+      <li><%= link_to I18n.t('view.organizations.my_organization.trading_link_text'), tradings_organization_path(x.organization.id) %></li>
+      <li><%= link_to I18n.t('view.organizations.my_organization.add_trading_link_text'), add_trading_organization_path(x.organization.id) %></li>
+      <% if x.role == I18n.t('controller.organization.users_role.admin') %>
+        <li><%= link_to I18n.t('view.organizations.my_organization.organization_peoples_link_text'), organization_path(x.organization.id) %></li>
+        <li><%= link_to I18n.t('view.organizations.my_organization.search_trading_link_text'), search_trading_organization_path(x.organization.id) %></li>
       <% end %>
     </ul>
   <% end %>
 <% else %>
-<p>You are not currently a member of any organizations.</p>
+<p><%= I18n.t('view.organizations.my_organization.no_organization_for_user_message') %></p>
 <% end %>
 

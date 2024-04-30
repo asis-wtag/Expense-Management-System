@@ -1,11 +1,12 @@
 <% if @user_organizations.present? %>
-  <h2>Pending Organization Invitations</h2>
+  <h2><%= I18n.t('view.organizations.invitation.heading_title_message') %></h2>
   <table>
     <thead>
     <tr>
-      <th>OrganizationName</th>
-      <th>InvitedAt</th>
-      <th>Action</th>  </tr>
+      <th><%= I18n.t('view.organizations.invitation.organization_name_table_heading_message') %></th>
+      <th><%= I18n.t('view.organizations.invitation.organization_invitation_time_table_heading_message') %></th>
+      <th><%= I18n.t('view.organizations.invitation.organization_action_table_heading_message') %></th>
+    </tr>
     </thead>
     <tbody>
     <% @user_organizations.each do |user_organization| %>
@@ -13,12 +14,12 @@
         <td><%= user_organization.organization.name %></td>
         <td><%= user_organization.created_at %></td>
         <td>
-          <%= link_to "Accept", accept_invitation_organization_path(user_organization.organization.id), data: {
+          <%= link_to I18n.t('view.organizations.invitation.accept_link_text'), accept_invitation_organization_path(user_organization.organization.id), data: {
             turbo_method: :patch
           } %>
         </td>
         <td>
-          <%= link_to "Reject", reject_invitation_organization_path(user_organization.organization.id), data: {
+          <%= link_to I18n.t('view.organizations.invitation.reject_link_text'), reject_invitation_organization_path(user_organization.organization.id), data: {
             turbo_method: :patch
           } %>
         </td>
@@ -27,5 +28,5 @@
     </tbody>
   </table>
 <% else %>
-  <p>You don't have any pending organization invitations.</p>
+  <p><%= I18n.t('view.organizations.invitation.no_pending_invitation_message') %></p>
 <% end %>

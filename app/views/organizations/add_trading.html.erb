@@ -1,4 +1,4 @@
-<h3>Add A Transaction To <%= @organization.name %></h3>
+<h3><%= I18n.t('view.organizations.add_trading.heading_message', organization_name: @organization.name) %></h3>
 
 <%= form_with url: create_trading_organization_path, method: :post do |form| %>
   <div>
@@ -6,6 +6,6 @@
     <%= form.number_field :amount,  step: "0.000001"%>
   </div>
   <div>
-    <%= form.submit "Add Transaction" %>
+    <%= form.submit I18n.t('view.organizations.add_trading.add_button_text') %>
   </div>
 <% end %>
