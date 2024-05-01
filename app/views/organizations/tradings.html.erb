@@ -7,7 +7,7 @@
           <%= form_with url: create_trading_organization_path, method: :post do |form| %>
             <div class="mb-3">
               <%= form.label :amount, class: "form-label" %>
-              <%= form.number_field :amount, class: "form-control", step: "0.000001" %>
+              <%= form.number_field :amount, class: "form-control", step: "0.000001"%>
             </div>
             <div class="text-center">
               <%= form.submit I18n.t('view.organizations.tradings.add_trading_from_button_text'), class: "btn btn-primary" %>

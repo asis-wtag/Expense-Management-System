@@ -31,17 +31,23 @@
       <h2 class="mb-4"><%= I18n.t('view.organizations.filtered_trading.comments_div_title') %></h2>
 
       <% if @filtered_comments.present? %>
-        <% @filtered_comments.each do |comment| %>
-          <div class="mb-3">
-            <ul class="list-unstyled">
-              <li><%= comment.user.email %> (<%= comment.created_at.strftime("%Y-%m-%d %H:%M:%S") %>)</li>
-              <li><%= comment.body %></li>
-            </ul>
-          </div>
-        <% end %>
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <tbody>
+            <% @filtered_comments.each do |comment| %>
+              <tr>
+                <td><%= comment.user.email %></td>
+                <td><%= comment.created_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
+                <td><%= comment.body %></td>
+              </tr>
+            <% end %>
+            </tbody>
+          </table>
+        </div>
       <% else %>
         <p><%= I18n.t('view.organizations.filtered_trading.no_comment_found_message') %></p>
       <% end %>
+
     </div>
   </div>
 </div>

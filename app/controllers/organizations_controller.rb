@@ -117,6 +117,11 @@ class OrganizationsController < ApplicationController
   def create_trading
     @organization = Organization.find(params[:id])
     authorize @organization, :create_trading?
+    if params[:amount].nil? || params[:amount].empty? || params[:amount].blank? || params[:amount]==""
+      flash[:alert] = I18n.t('controller.organization.create_trading.empty_amount_error_message')
+      redirect_back(fallback_location: root_path)
+      return
+    end
     if Trading.create(user: current_user, organization: @organization, amount: params[:amount])
       redirect_to tradings_organization_path, notice: I18n.t('controller.organization.create_trading.successful_message')
     else
@@ -154,6 +159,7 @@ class OrganizationsController < ApplicationController
     if params[:comment].strip.empty?
       flash[:alert] = I18n.t('controller.organization.add_comment.empty_comment_error_message')
       redirect_back(fallback_location: root_path)
+      return
     end
     if Comment.create(user: current_user, organization: @organization, body: params[:comment])
       redirect_to tradings_organization_path, notice: I18n.t('controller.organization.add_comment.successful_message')

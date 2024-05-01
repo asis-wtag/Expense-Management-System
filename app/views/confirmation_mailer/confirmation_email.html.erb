@@ -5,7 +5,7 @@
 </head>
 <body>
 <h1><%= I18n.t('view.confirmation_email.title') %></h1>
-<p><b><%= I18n.t('view.confirmation_email.hello') %><%= @user.name %>,</b></p>
+<p><b><%= I18n.t('view.confirmation_email.hello') %>  <%= @user.name %>,</b></p>
 <p><%= I18n.t('view.confirmation_email.click_link_instruction_message') %>:</p>
 <%= link_to I18n.t('view.confirmation_email.confirm_email_link_text'),  confirmation_url(token: @user.generate_token_for(:email_confirmation), host: 'localhost', port: 3000 ) %>
 <p><%= I18n.t('view.confirmation_email.unrequested_email_message') %></p>

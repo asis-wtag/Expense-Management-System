@@ -50,6 +50,7 @@ en:
         successful_message: Maiden admin successfully !
       create_trading:
         successful_message: Transaction record added successfully !
+        empty_amount_error_message: Amount can't be empty !
       delete_trading:
         successful_message: Deleted trading record successfully !
       add_comment:
