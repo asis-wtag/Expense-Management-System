@@ -77,7 +77,7 @@ class OrganizationsController < ApplicationController
     authorize Organization, :reject_invitation?
     @organization = Organization.find(params[:id])
     @user_organization = UserOrganization.find_by(user: current_user,organization: @organization)
-    if @user_organization.update(invitation: 'rejected')
+    if @user_organization.update(invitation: I18n.t('controller.organization.invitation_status.rejected'))
       redirect_to organizations_invitations_path, notice: I18n.t('controller.organization.reject_invitation.rejected_message')
     else
       redirect_to organizations_invitations_path, alert: I18n.t('controller.organization.something_went_wrong_message')

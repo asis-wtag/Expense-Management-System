@@ -8,7 +8,7 @@ class ConfirmationsController < ApplicationController
   end
 
   def create
-    send_email(user.email)
+    send_email(params[:email])
     redirect_to root_path, notice: I18n.t('controller.confirmation.create.verification_mail_sent_message')
   end
 

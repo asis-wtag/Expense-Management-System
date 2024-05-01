@@ -8,8 +8,8 @@ class PasswordsController < ApplicationController
     if current_user.update(password_params)
       redirect_to edit_password_path, notice: I18n.t('controller.password_reset.updated_successfully_message')
     else
-      flash[:alert] = @user.errors.full_messages.join('. ')
-      redirect_to root_path
+      flash[:alert] = @user.errors.full_messages.first
+      redirect_back(fallback_location: root_path)
     end
   end
 

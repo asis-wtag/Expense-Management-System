@@ -22,8 +22,8 @@ class PasswordResetsController < ApplicationController
     if @user.update(password_params)
       redirect_to new_session_path, notice: I18n.t('controller.password_reset.updated_successfully_message')
     else
-      flash[:alert] = @user.errors.full_messages.join('. ')
-      redirect_to root_path
+      flash[:alert] = @user.errors.full_messages.first
+      redirect_back(fallback_location: root_path)
     end
   end
 
