@@ -11,6 +11,7 @@ en:
         duplicate_email_message: Account with this email already exists, try a different one !
         successfully_sent_verification_mail_message: Verification email sent, Please check your email !
         empty_name_error_message: Name can't be empty !
+        empty_email_error_message: Email can't be empty !
     session:
       successful_signin_message: You have signed in successfully !
       required_email_verification_message: You need to verify your email first !

@@ -6,8 +6,13 @@ class RegistrationsController < ApplicationController
   end
 
   def create
-    if params[:user][:name].strip.empty?
+    if params[:user][:email].strip.empty?
       flash[:alert] = I18n.t('controller.registration.create.empty_name_error_message')
+      redirect_back fallback_location: root_path
+      return
+    end
+    if params[:user][:name].strip.empty?
+      flash[:alert] = I18n.t('controller.registration.create.empty_email_error_message')
       redirect_back fallback_location: root_path
       return
     end
@@ -22,7 +27,7 @@ class RegistrationsController < ApplicationController
         send_email(@user.email)
         redirect_to root_path, notice: I18n.t('controller.registration.create.successfully_sent_verification_mail_message')
       else
-        flash[:alert] = @user.errors.full_messages.join('. ')
+        flash[:alert] = @user.errors.full_messages.first
         redirect_back fallback_location: root_path
       end
     end

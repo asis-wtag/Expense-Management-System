@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   get 'organizations/my_organizations', to: 'organizations#my_organizations'
   require 'sidekiq/web'
   mount Sidekiq::Web => '/sidekiq'
-  resources :organizations, only: %i[new create shows] do
+  resources :organizations, only: %i[new create show] do
     member do
       post 'add_people'
       delete 'remove_people'
