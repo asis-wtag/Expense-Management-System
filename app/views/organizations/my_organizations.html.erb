@@ -1,28 +1,41 @@
-<ul><li><%= link_to I18n.t('view.organizations.my_organization.create_new_organization_link_text'), new_organization_path %></li></ul>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <ul class="list-unstyled mb-4">
+        <li><%= link_to I18n.t('view.organizations.my_organization.create_new_organization_link_text'), new_organization_path, class: "btn btn-primary" %></li>
+      </ul>
 
-<h3><%= I18n.t('view.organizations.my_organization.all_organization_heading_text', user: current_user.name) %></h3>
-<% if @my_organizations.present? %>
-  <% @my_organizations.each do |x| %>
-    <h3><%= x.organization.name %>&emsp;&emsp;
-      <% if x.role == I18n.t('controller.organization.users_role.admin')%>
-        <sub>
-          <%= link_to I18n.t('view.organizations.my_organization.delete_organization_link_text'), delete_organization_organization_path(x.organization.id), data: {
-            turbo_method: :delete,
-            turbo_confirm: "Are you sure to delete this organization?"
-          }, class: "btn btn-primary" %>
-        </sub>
+      <h3 class="mb-4 text-dark"><%= I18n.t('view.organizations.my_organization.all_organization_heading_text', user: current_user.name) %></h3>
+
+      <% if @my_organizations.present? %>
+        <% @my_organizations.each do |x| %>
+          <div class="card mb-3 bg-light">
+            <div class="card-body">
+              <h5 class="card-title text-primary"><%= x.organization.name %>&emsp;&emsp;
+                <% if x.role == I18n.t('controller.organization.users_role.admin')%>
+                  <sub>
+                    <%= link_to I18n.t('view.organizations.my_organization.delete_organization_link_text'), delete_organization_organization_path(x.organization.id), data: {
+                      turbo_method: :delete,
+                      turbo_confirm: "Are you sure to delete this organization?"
+                    }, class: "btn btn-danger btn-sm" %>
+                  </sub>
+                <% end %>
+              </h5>
+              <ul class="list-group list-group-horizontal">
+                <li class="list-group-item bg-dark text-white m-2"><%= link_to I18n.t('view.organizations.my_organization.trading_link_text'), tradings_organization_path(x.organization.id), class: "btn btn-dark btn-sm text-white" %></li>
+                <li class="list-group-item bg-dark text-white m-2"><%= link_to I18n.t('view.organizations.my_organization.add_trading_link_text'), add_trading_organization_path(x.organization.id), class: "btn btn-dark btn-sm text-white" %></li>
+                <% if x.role == I18n.t('controller.organization.users_role.admin') %>
+                  <li class="list-group-item bg-dark text-white m-2"><%= link_to I18n.t('view.organizations.my_organization.organization_peoples_link_text'), organization_path(x.organization.id), class: "btn btn-dark btn-sm text-white" %></li>
+                  <li class="list-group-item bg-dark text-white m-2"><%= link_to I18n.t('view.organizations.my_organization.search_trading_link_text'), search_trading_organization_path(x.organization.id), class: "btn btn-dark btn-sm text-white" %></li>
+                <% end %>
+              </ul>
+            </div>
+          </div>
+        <% end %>
+      <% else %>
+        <div class="alert alert-warning"><%= I18n.t('view.organizations.my_organization.no_organization_for_user_message') %></div>
       <% end %>
-    </h3>
-    <ul>
-      <li><%= link_to I18n.t('view.organizations.my_organization.trading_link_text'), tradings_organization_path(x.organization.id) %></li>
-      <li><%= link_to I18n.t('view.organizations.my_organization.add_trading_link_text'), add_trading_organization_path(x.organization.id) %></li>
-      <% if x.role == I18n.t('controller.organization.users_role.admin') %>
-        <li><%= link_to I18n.t('view.organizations.my_organization.organization_peoples_link_text'), organization_path(x.organization.id) %></li>
-        <li><%= link_to I18n.t('view.organizations.my_organization.search_trading_link_text'), search_trading_organization_path(x.organization.id) %></li>
-      <% end %>
-    </ul>
-  <% end %>
-<% else %>
-<p><%= I18n.t('view.organizations.my_organization.no_organization_for_user_message') %></p>
-<% end %>
+    </div>
+  </div>
+</div>
 

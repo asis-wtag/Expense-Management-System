@@ -35,9 +35,9 @@ class ApplicationController < ActionController::Base
 
   def user_not_authorized
     if !user_signed_in?
-      redirect_to root_path, notice: I18n.t('controller.application.user_not_logged_in_error')
+      redirect_to root_path, alert: I18n.t('controller.application.user_not_logged_in_error')
     else
-      redirect_to root_path, notice: I18n.t('controller.application.unauthorized_action_error')
+      redirect_to root_path, alert: I18n.t('controller.application.unauthorized_action_error')
     end
   end
 end

@@ -5,15 +5,19 @@ class OrganizationsController < ApplicationController
 
   def create
     authorize Organization, :create?
-    organization_name = params[:organization_name]
+    organization_name = params[:organization_name].strip
     existing_organization = Organization.where("LOWER(name) = ?", organization_name.downcase).first
+    if organization_name.nil? || organization_name.empty?
+      redirect_to new_organization_path, alert: I18n.t('controller.organization.create.empty_organization_name_error')
+      return
+    end
     if existing_organization.nil?
       Organization.create(name: organization_name)
       @organization = Organization.find_by(name: organization_name)
       UserOrganization.create(user: current_user, organization: @organization, invitation: 'accepted', role: 'admin')
       redirect_to new_organization_path, notice: I18n.t('controller.organization.create.successful_creation_message')
     else
-      redirect_to new_organization_path, notice: I18n.t('controller.organization.create.already_exists_error')
+      redirect_to new_organization_path, alert: I18n.t('controller.organization.create.already_exists_error')
     end
   end
 
@@ -38,12 +42,12 @@ class OrganizationsController < ApplicationController
     authorize @organization, :add_people?
     @new_org_user = User.find_by(email: params[:organization][:email])
     if @new_org_user.nil?
-      redirect_to invite_people_organization_path, notice: I18n.t('controller.organization.add_people.user_not_exists_message')
+      redirect_to invite_people_organization_path, alert: I18n.t('controller.organization.add_people.user_not_exists_message')
     elsif UserOrganization.find_by(user: @new_org_user, organization: @organization).nil?
       UserOrganization.create(user: @new_org_user, organization: @organization, invitation: I18n.t('controller.organization.invitation_status.pending'), role: I18n.t('controller.organization.users_role.non-admin'))
       redirect_to invite_people_organization_path, notice: I18n.t('controller.organization.add_people.invitation_successful_message')
     else
-      redirect_to invite_people_organization_path, notice: I18n.t('controller.organization.add_people.user_already_in_organization_message')
+      redirect_to invite_people_organization_path, alert: I18n.t('controller.organization.add_people.user_already_in_organization_message')
     end
   end
 
@@ -54,7 +58,7 @@ class OrganizationsController < ApplicationController
     if UserOrganization.destroy_by(user: @remove_org_user)
       redirect_to organization_path(@organization.id), notice: I18n.t('controller.organization.remove_people.successfully_removed_message')
     else
-      redirect_to organization_path(@organization.id), notice: I18n.t('controller.organization.something_went_wrong_message')
+      redirect_to organization_path(@organization.id), alert: I18n.t('controller.organization.something_went_wrong_message')
     end
   end
 
@@ -65,7 +69,7 @@ class OrganizationsController < ApplicationController
     if @user_organization.update(invitation: 'accepted')
       redirect_to organizations_invitations_path, notice: I18n.t('controller.organization.accept_invitation.accepted_message')
     else
-      redirect_to organizations_invitations_path, notice: I18n.t('controller.organization.something_went_wrong_message')
+      redirect_to organizations_invitations_path, alert: I18n.t('controller.organization.something_went_wrong_message')
     end
   end
 
@@ -76,7 +80,7 @@ class OrganizationsController < ApplicationController
     if @user_organization.update(invitation: 'rejected')
       redirect_to organizations_invitations_path, notice: I18n.t('controller.organization.reject_invitation.rejected_message')
     else
-      redirect_to organizations_invitations_path, notice: I18n.t('controller.organization.something_went_wrong_message')
+      redirect_to organizations_invitations_path, alert: I18n.t('controller.organization.something_went_wrong_message')
     end
   end
 
@@ -93,7 +97,7 @@ class OrganizationsController < ApplicationController
     if update_record.update(role: 'admin')
       redirect_to organization_path(@organization.id), notice: I18n.t('controller.organization.make_admin.successful_message')
     else
-      redirect_to organization_path(@organization.id), notice: I18n.t('controller.organization.something_went_wrong_message')
+      redirect_to organization_path(@organization.id), alert: I18n.t('controller.organization.something_went_wrong_message')
     end
   end
 
@@ -113,10 +117,10 @@ class OrganizationsController < ApplicationController
   def create_trading
     @organization = Organization.find(params[:id])
     authorize @organization, :create_trading?
-    if Trading.create(user: current_user, organization: @organization, amount: params[:amount] )
+    if Trading.create(user: current_user, organization: @organization, amount: params[:amount])
       redirect_to tradings_organization_path, notice: I18n.t('controller.organization.create_trading.successful_message')
     else
-      redirect_to tradings_organization_path, notice: I18n.t('controller.organization.something_went_wrong_message')
+      redirect_to tradings_organization_path, alert: I18n.t('controller.organization.something_went_wrong_message')
     end
   end
 
@@ -140,17 +144,21 @@ class OrganizationsController < ApplicationController
     if Trading.destroy(params[:trading_id])
       redirect_to tradings_organization_path, notice: I18n.t('controller.organization.delete_trading.successful_message')
     else
-      redirect_to tradings_organization_path, notice: I18n.t('controller.organization.something_went_wrong_message')
+      redirect_to tradings_organization_path, alert: I18n.t('controller.organization.something_went_wrong_message')
     end
   end
 
   def add_comment
     @organization = Organization.find(params[:id])
     authorize @organization, :add_comment?
+    if params[:comment].strip.empty?
+      flash[:alert] = I18n.t('controller.organization.add_comment.empty_comment_error_message')
+      redirect_back(fallback_location: root_path)
+    end
     if Comment.create(user: current_user, organization: @organization, body: params[:comment])
       redirect_to tradings_organization_path, notice: I18n.t('controller.organization.add_comment.successful_message')
     else
-      redirect_to tradings_organization_path, notice: I18n.t('controller.organization.something_went_wrong_message')
+      redirect_to tradings_organization_path, alert: I18n.t('controller.organization.something_went_wrong_message')
     end
   end
 
@@ -160,7 +168,7 @@ class OrganizationsController < ApplicationController
     if Comment.destroy(params[:comment_id])
       redirect_to tradings_organization_path, notice: I18n.t('controller.organization.delete_comment.successful_message')
     else
-      redirect_to tradings_organization_path, notice: I18n.t('controller.organization.something_went_wrong_message')
+      redirect_to tradings_organization_path, alert: I18n.t('controller.organization.something_went_wrong_message')
     end
   end
 
@@ -170,7 +178,7 @@ class OrganizationsController < ApplicationController
     if Trading.where(organization: @organization).destroy_all && UserOrganization.where(organization: @organization).destroy_all && Comment.where(organization: @organization).destroy_all && Organization.destroy(params[:id])
       redirect_to organizations_my_organizations_path, notice: I18n.t('controller.organization.delete_organization.successful_message')
     else
-      redirect_to organizations_my_organizations_path, notice: I18n.t('controller.organization.something_went_wrong_message')
+      redirect_to organizations_my_organizations_path, alert: I18n.t('controller.organization.something_went_wrong_message')
     end
   end
 end

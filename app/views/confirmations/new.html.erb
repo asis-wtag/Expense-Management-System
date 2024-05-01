@@ -1,4 +1,16 @@
-<h5><%= I18n.t('view.confirmation.heading_message') %></h5>
-<%= form_with url: confirmation_path(email: @user.email), method: :post do |form| %>
-  <%= form.submit I18n.t('view.confirmation.button_text') %>
-<% end %>
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <h5><%= I18n.t('view.confirmation.heading_message') %></h5>
+          <%= form_with url: confirmation_path(email: @user.email), method: :post do |form| %>
+            <div class="mb-3">
+              <%= form.submit I18n.t('view.confirmation.button_text'), class: "btn btn-primary" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

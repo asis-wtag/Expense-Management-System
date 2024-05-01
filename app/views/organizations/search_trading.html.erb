@@ -1,10 +1,24 @@
-<h4><%= I18n.t('view.organizations.search_trading.title_message') %>: </h4>
-<%= form_with url: filtered_tradings_organization_path(@organization.id), method: :get do |form| %>
-  <label for="start_date"><%= I18n.t('view.organizations.search_trading.start_date_text') %>:</label>
-  <%= form.date_field :start_date %>
+<div class="container-fluid bg-light py-4">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title text-center mb-4"><%= I18n.t('view.organizations.search_trading.title_message') %>:</h4>
+          <%= form_with url: filtered_tradings_organization_path(@organization.id), method: :get do |form| %>
+            <div class="form-group mb-3">
+              <%= label_tag "start_date", I18n.t('view.organizations.search_trading.start_date_text') + ":" %>
+              <%= form.date_field :start_date, class: "form-control" %>
+            </div>
 
-  <label for="end_date"><%= I18n.t('view.organizations.search_trading.end_date_text') %>:</label>
-  <%= form.date_field :end_date %>
+            <div class="form-group mb-3">
+              <%= label_tag "end_date", I18n.t('view.organizations.search_trading.end_date_text') + ":" %>
+              <%= form.date_field :end_date, class: "form-control" %>
+            </div>
 
-  <%= form.submit I18n.t('view.organizations.search_trading.button_text') %>
-<% end %>
+            <%= form.submit I18n.t('view.organizations.search_trading.button_text'), class: "btn btn-primary btn-block" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

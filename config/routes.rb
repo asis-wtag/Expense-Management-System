@@ -1,15 +1,15 @@
 Rails.application.routes.draw do
   root 'main#index'
-  resource :session
-  resource :registrations
-  resource :password_reset
-  resource :password
-  resource :confirmation
+  resource :session, only: %i[new create destroy]
+  resource :registrations, only: %i[new create]
+  resource :password, only: %i[edit update]
+  resource :password_reset, only: %i[new create edit update]
+  resource :confirmation, only: %i[new create show]
   get 'organizations/invitations', to: 'organizations#invitations'
   get 'organizations/my_organizations', to: 'organizations#my_organizations'
   require 'sidekiq/web'
   mount Sidekiq::Web => '/sidekiq'
-  resources :organizations do
+  resources :organizations, only: %i[new create shows] do
     member do
       post 'add_people'
       delete 'remove_people'

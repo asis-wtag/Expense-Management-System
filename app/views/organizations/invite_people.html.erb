@@ -1,11 +1,16 @@
-<h3><%= I18n.t('view.organizations.invite_people.heading_title_message', organization_name: @organization.name) %></h3>
-
-<%= form_with model: @organization, url: add_people_organization_path, method: :post do |form| %>
-  <div>
-    <%= form.label :email %>
-    <%= form.email_field :email, size: 50 %>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8 bg-light p-4 rounded">
+      <h3><%= I18n.t('view.organizations.invite_people.heading_title_message', organization_name: @organization.name) %></h3>
+      <%= form_with model: @organization, url: add_people_organization_path, method: :post do |form| %>
+        <div class="mb-3">
+          <%= form.label :email, class: "form-label" %>
+          <%= form.email_field :email, class: "form-control", size: 50 %>
+        </div>
+        <div>
+          <%= form.submit I18n.t('view.organizations.invite_people.invite_button_text'), class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
   </div>
-  <div>
-    <%= form.submit I18n.t('view.organizations.invite_people.invite_button_text') %>
-  </div>
-<% end %>
+</div>

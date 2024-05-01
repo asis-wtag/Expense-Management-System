@@ -1,39 +1,47 @@
-<h2><%= I18n.t('view.organizations.filtered_trading.heading_message', organization_name: @organization.name) %></h2>
-<% if @filtered_tradings.present? %>
-  <table>
-    <thead>
-    <tr>
-      <th><%= I18n.t('view.organizations.filtered_trading.added_at_table_heading_message') %></th>
-      <th><%= I18n.t('view.organizations.filtered_trading.added_by_table_heading_message') %></th>
-      <th><%= I18n.t('view.organizations.filtered_trading.amount_table_heading_message') %></th>
-    </tr>
-    </thead>
-    <tbody>
-    <% @filtered_tradings.each do |trading| %>
-      <tr>
-        <td><%= trading.created_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
-        <td><%= trading.user.email %></td>
-        <td><%= trading.amount %></td>
-      </tr>
-    <% end %>
-    </tbody>
-  </table>
-<% else %>
-  <p><%= I18n.t('view.organizations.filtered_trading.no_trading_found_message') %></p>
-<% end %>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <h2 class="mb-4"><%= I18n.t('view.organizations.filtered_trading.heading_message', organization_name: @organization.name) %></h2>
 
-<hr>
-<h2><%= I18n.t('view.organizations.filtered_trading.comments_div_title') %></h2>
-<% if @filtered_comments.present? %>
-  <% @filtered_comments.each do |comment| %>
-    <div>
-      <ul>
-        <li><%= comment.user.email %>  (<%= comment.created_at.strftime("%Y-%m-%d %H:%M:%S") %>)
-        <%= comment.body %>
+      <% if @filtered_tradings.present? %>
+        <table class="table table-bordered table-striped">
+          <thead>
+          <tr>
+            <th><%= I18n.t('view.organizations.filtered_trading.added_at_table_heading_message') %></th>
+            <th><%= I18n.t('view.organizations.filtered_trading.added_by_table_heading_message') %></th>
+            <th><%= I18n.t('view.organizations.filtered_trading.amount_table_heading_message') %></th>
+          </tr>
+          </thead>
+          <tbody>
+          <% @filtered_tradings.each do |trading| %>
+            <tr>
+              <td><%= trading.created_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
+              <td><%= trading.user.email %></td>
+              <td><%= trading.amount %></td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+      <% else %>
+        <p><%= I18n.t('view.organizations.filtered_trading.no_trading_found_message') %></p>
+      <% end %>
 
-      </ul>
+      <hr>
+
+      <h2 class="mb-4"><%= I18n.t('view.organizations.filtered_trading.comments_div_title') %></h2>
+
+      <% if @filtered_comments.present? %>
+        <% @filtered_comments.each do |comment| %>
+          <div class="mb-3">
+            <ul class="list-unstyled">
+              <li><%= comment.user.email %> (<%= comment.created_at.strftime("%Y-%m-%d %H:%M:%S") %>)</li>
+              <li><%= comment.body %></li>
+            </ul>
+          </div>
+        <% end %>
+      <% else %>
+        <p><%= I18n.t('view.organizations.filtered_trading.no_comment_found_message') %></p>
+      <% end %>
     </div>
-  <% end %>
-<% else %>
-  <p><%= I18n.t('view.organizations.filtered_trading.no_comment_found_message') %></p>
-<% end %>
+  </div>
+</div>

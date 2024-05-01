@@ -10,6 +10,7 @@ en:
       create:
         duplicate_email_message: Account with this email already exists, try a different one !
         successfully_sent_verification_mail_message: Verification email sent, Please check your email !
+        empty_name_error_message: Name can't be empty !
     session:
       successful_signin_message: You have signed in successfully !
       required_email_verification_message: You need to verify your email first !
@@ -33,6 +34,7 @@ en:
       create:
         successful_creation_message: Organization created successfully !
         already_exists_error: Organization already exists, try a different name !
+        empty_organization_name_error: Organization name can't be empty !
       add_people:
         invitation_successful_message: Successfully invited user to the organization !
         user_already_in_organization_message: Given user already exists/invited in the organization !
@@ -51,6 +53,7 @@ en:
         successful_message: Deleted trading record successfully !
       add_comment:
         successful_message: Comment added successfully !
+        empty_comment_error_message: Comment can't be empty !
       delete_comment:
         successful_message: Comment deleted successfully !
       delete_organization:
@@ -89,13 +92,13 @@ en:
     layout:
       application:
         button_text: Logout
-        edit_password_text: Edit_Password
-        my_organization_text: My_Organization
-        organization_invitation_text: Organization_Invitations
+        edit_password_text: Change Password
+        my_organization_text: My Organization
+        organization_invitation_text: Organization Invitations
         signup_link_text: SignUp
         login_link_text: LogIn
     homepage:
-      heading_text: Homepage
+      heading_text: Welcome To Expense Management System
     organizations:
       add_trading:
         heading_message: "Add A Transaction To %{organization_name}"
@@ -143,6 +146,7 @@ en:
         table_email_heading_message: Email
         table_invitation_heading_message: Invitation
         table_role_heading_message: Role
+        table_action_heading_message: Action
         make_admin_link_text: Make Admin
         remove_member_link_text: Remove Member
         cancel_invitation_link_text: Cancel Invitation
@@ -172,6 +176,7 @@ en:
       update_heading_text: Update Password
       current_password_label_text: Current Password
       new_password_label_text: New Password
+      confirm_password_label_text: Confirm Password
       button_text: Update Password
     registration:
       heading_text: Sign Up

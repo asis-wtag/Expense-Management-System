@@ -6,7 +6,8 @@ class SessionsController < ApplicationController
   end
 
   def create
-    if user = User.authenticate_by(email: params[:email], password: params[:password])
+    entered_email = params[:email].strip
+    if user = User.authenticate_by(email: entered_email, password: params[:password])
       if user.confirmed?
         login user
         redirect_to root_path, notice: I18n.t('controller.session.successful_signin_message')
@@ -15,7 +16,7 @@ class SessionsController < ApplicationController
       end
     else
       flash[:alert] = I18n.t('controller.session.invalid_credential_message')
-      render :new, status: :unprocessable_entity
+      redirect_back(fallback_location: root_path)
     end
   end
 

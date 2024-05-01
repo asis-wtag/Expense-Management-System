@@ -1,11 +1,20 @@
-<h3><%= I18n.t('view.organizations.new.title_text') %></h3>
-
-<%= form_with model: @organization, url: organizations_path do |form| %>
-  <div>
-    <%= form.label :organization_name %>
-    <%= form.text_field :organization_name, size: 30 %>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <h3 class="card-title text-center mb-4"><%= I18n.t('view.organizations.new.title_text') %></h3>
+          <%= form_with model: @organization, url: organizations_path do |form| %>
+            <div class="mb-3">
+              <%= form.label :organization_name, class: "form-label" %>
+              <%= form.text_field :organization_name, class: "form-control" %>
+            </div>
+            <div class="text-center">
+              <%= form.submit I18n.t('view.organizations.new.button_text'), class: "btn btn-primary" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
   </div>
-  <div>
-    <%= form.submit I18n.t('view.organizations.new.button_text') %>
-  </div>
-<% end %>
+</div>
