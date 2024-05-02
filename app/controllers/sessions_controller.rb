@@ -1,7 +1,7 @@
 class SessionsController < ApplicationController
   def new
     if user_signed_in?
-      redirect_to organizations_invitations_path
+      redirect_to root_path
     end
   end
 

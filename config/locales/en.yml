@@ -51,13 +51,18 @@ en:
       create_trading:
         successful_message: Transaction record added successfully !
         empty_amount_error_message: Amount can't be empty !
+      filtered_trading:
+        start_date_greater_than_end_date_error: Start date can't be greater than end date !
       delete_trading:
         successful_message: Deleted trading record successfully !
+        trading_not_exits_message: Trading doesn't exists !
       add_comment:
         successful_message: Comment added successfully !
         empty_comment_error_message: Comment can't be empty !
       delete_comment:
         successful_message: Comment deleted successfully !
+        comment_not_exists_message: Comment doesn't exists !
+        no_permission_error_message: You don't have permission to do that !
       delete_organization:
         successful_message: Deleted organization successfully !
       users_role:
@@ -68,6 +73,9 @@ en:
         accepted: accepted
         rejected: rejected
       something_went_wrong_message: Couldn't proceed, Something went wrong !
+      organization_not_exists_message: Organization doesn't exists !
+      user_does_not_exists_message: User doesn't exists !
+      empty_email_error_message: Please enter an email address !
   mailer:
     confirmation_mailer:
       subject: "Confirm your email address"

@@ -54,10 +54,14 @@
             <td><%= trading.created_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
             <td><%= trading.user.email %></td>
             <td><%= trading.amount %></td>
-            <td><%= link_to I18n.t('view.organizations.tradings.delete_button_text'), delete_trading_organization_path(trading_id: trading.id), data: {
-              turbo_method: :delete,
-              turbo_confirm: "Are you sure to delete the trading?"
-            }, class: "btn btn-danger btn-sm" %></td>
+            <td>
+              <% if trading.user_id == current_user.id || UserOrganization.find_by(user: current_user, organization: @organization).role == I18n.t('controller.organization.users_role.admin') %>
+                <%= link_to I18n.t('view.organizations.tradings.delete_button_text'), delete_trading_organization_path(trading_id: trading.id), data: {
+                  turbo_method: :delete,
+                  turbo_confirm: "Are you sure to delete the trading?"
+                }, class: "btn btn-danger btn-sm" %>
+              <% end %>
+            </td>
           </tr>
         <% end %>
         </tbody>
@@ -77,10 +81,13 @@
         <div class="card-body">
           <ul class="list-unstyled">
             <li><%= comment.user.email %> (<%= comment.created_at.strftime("%Y-%m-%d %H:%M:%S") %>)
-              <%= link_to I18n.t('view.organizations.tradings.delete_button_text'), delete_comment_organization_path(comment_id: comment.id), data: {
-                turbo_method: :delete,
-                turbo_confirm: "Are you sure to delete the comment?"
-              }, class: "btn btn-danger btn-sm float-end" %></li>
+              <% if comment.user_id == current_user.id || UserOrganization.find_by(user: current_user, organization: @organization).role == I18n.t('controller.organization.users_role.admin') %>
+                <%= link_to I18n.t('view.organizations.tradings.delete_button_text'), delete_comment_organization_path(comment_id: comment.id), data: {
+                  turbo_method: :delete,
+                  turbo_confirm: "Are you sure to delete the comment?"
+                }, class: "btn btn-danger btn-sm float-end" %>
+              <% end %>
+            </li>
             <li><%= comment.body %></li>
           </ul>
         </div>
