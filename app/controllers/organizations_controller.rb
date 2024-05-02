@@ -12,13 +12,21 @@ class OrganizationsController < ApplicationController
       redirect_to new_organization_path, alert: I18n.t('controller.organization.create.empty_organization_name_error')
       return
     end
-    if existing_organization.nil?
-      Organization.create(name: organization_name)
+    if !existing_organization.nil?
+      redirect_to new_organization_path, alert: I18n.t('controller.organization.create.already_exists_error')
+    else
+      @organization = Organization.new(name: organization_name)
+      if @organization.save
+        if params[:image].present?
+          @organization.image.attach(params[:image])
+        end
+      else
+        flash[:alert] = I18n.t('controller.organization.something_went_wrong_message')
+        redirect_back(fallback_location: root_path)
+      end
       @organization = Organization.find_by(name: organization_name)
       UserOrganization.create(user: current_user, organization: @organization, invitation: 'accepted', role: 'admin')
       redirect_to new_organization_path, notice: I18n.t('controller.organization.create.successful_creation_message')
-    else
-      redirect_to new_organization_path, alert: I18n.t('controller.organization.create.already_exists_error')
     end
   end
 
