@@ -29,7 +29,7 @@ en:
       successful_update_message: Your password has been updated successfully !
     password_reset:
       check_email_message: Check your email to reset your password !
-      updated_successfully_message: Your password has been reset successfully, Please login !
+      updated_successfully_message: Your password has been reset successfully !
       invalid_access_token: Invalid token, please try again !
     organization:
       create:

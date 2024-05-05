@@ -88,9 +88,9 @@ class OrganizationsController < ApplicationController
       return
     end
     authorize @organization, :remove_people?
-    @remove_org_user = User.find_by(params[:user_id])
-    if valid_user @remove_org_user
-      flash[:alert] = I18n.t('controller.organization.organization_not_exists_message')
+    @remove_org_user = User.find_by(id: params[:user_id])
+    if !valid_user @remove_org_user
+      flash[:alert] = I18n.t('controller.organization.user_does_not_exists_message')
       redirect_back(fallback_location: root_path)
       return
     end
@@ -118,13 +118,13 @@ class OrganizationsController < ApplicationController
   end
 
   def reject_invitation
+    @organization = Organization.find_by(id: params[:id])
     authorize Organization, :reject_invitation?
     if invalid_organization?
       flash[:alert] = I18n.t('controller.organization.organization_not_exists_message')
       redirect_back(fallback_location: root_path)
       return
     end
-    @organization = Organization.find_by(id: params[:id])
     @user_organization = UserOrganization.find_by(user: current_user, organization: @organization)
     if @user_organization.update(invitation: I18n.t('controller.organization.invitation_status.rejected'))
       redirect_to organizations_invitations_path, notice: I18n.t('controller.organization.reject_invitation.rejected_message')
@@ -147,8 +147,8 @@ class OrganizationsController < ApplicationController
     end
     authorize @organization, :make_admin?
     @new_admin = User.find_by(id: params[:user_id])
-    if valid_user @new_admin
-      flash[:alert] = I18n.t('controller.organization.organization_not_exists_message')
+    if !valid_user @new_admin
+      flash[:alert] = I18n.t('controller.organization.user_does_not_exists_message')
       redirect_back(fallback_location: root_path)
       return
     end

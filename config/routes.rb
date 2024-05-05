@@ -5,10 +5,10 @@ Rails.application.routes.draw do
   resource :password, only: %i[edit update]
   resource :password_reset, only: %i[new create edit update]
   resource :confirmation, only: %i[new create show]
-  get 'organizations/invitations', to: 'organizations#invitations'
-  get 'organizations/my_organizations', to: 'organizations#my_organizations'
   require 'sidekiq/web'
   mount Sidekiq::Web => '/sidekiq'
+  get 'organizations/invitations', to: 'organizations#invitations'
+  get 'organizations/my_organizations', to: 'organizations#my_organizations'
   resources :organizations, only: %i[new create show] do
     member do
       post 'add_people'
